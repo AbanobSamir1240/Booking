@@ -1,13 +1,10 @@
-namespace Booking.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace GpBooking.Models
+{
     [Table("ClubsTbl")]
-    public partial class ClubsTbl
+    public class ClubsTbl
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
