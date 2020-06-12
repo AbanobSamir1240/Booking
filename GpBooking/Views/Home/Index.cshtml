@@ -1,31 +1,252 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    var Hotels = ViewBag.Hotels as IEnumerable<GpBooking.Models.Hotel>;
+    var Clubs = ViewBag.Clubs as IEnumerable<GpBooking.Models.Club>;
+    var Restaurants = ViewBag.Restaurants as IEnumerable<GpBooking.Models.Restaurant>;
+    var Places = ViewBag.Places as IEnumerable<GpBooking.Models.Place>;
 }
+<section class="module parallax ewebcraft-banner1">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-6 banner-text">
+                <h3>Save more on your next hotel</h3>
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">welcome to <span>travel area</span></h2>
+                <p>
+                    Thousands of deals made every day
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<section class="ewebcraft-features2">
+    <div class="container">
+        <div class="row">
+            <div class="main-text text-center">
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">What it can do for you</h2>
+            </div>
+            <div class="col-sm-3 service-block">
+                <div class="service-icon">
+                    <img src="~/Images/Travel-icon_03.png" alt="map">
+                </div>
+                <div class="service-text">
+                    <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Destinations</h3>
+                </div>
+            </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            <div class="col-sm-3 service-block">
+                <div class="service-icon">
+                    <img src="~/Images/Travel-icon_05.png" alt="arrowplain-icon">
+                </div>
+                <div class="service-text">
+                    <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Hot Tours </h3>
+                </div>
+            </div>
+
+            <div class="col-sm-3 service-block">
+                <div class="service-icon">
+                    <img src="~/Images/Travel-icon_11.png" alt="car-icon">
+                </div>
+                <div class="service-text">
+                    <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">pick &amp; drop</h3>
+                </div>
+            </div>
+
+            <div class="col-sm-3 service-block">
+                <div class="service-icon">
+                    <img src="~/Images/Travel-icon_08.png" alt="honeymoon">
+                </div>
+                <div class="service-text">
+                    <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Honeymoons</h3>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+
+<!--end features-->
+<!-- SERVICE BOX START -->
+<section class="ewebcraft-services4">
+    <div class="container ">
+        <div class="row">
+            <div class="main-text text-center">
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Hotels</h2>
+            </div>
+            @foreach (var hotel in Hotels)
+            {
+
+                <div class="col-sm-4 package-block">
+                    <a href="/Hotel/Get/@hotel.Id">
+                        <div class="package-block-image">
+                            <img src="~/Images/package1_05.jpg" alt="@hotel.Name">
+                        </div>
+                    </a>
+                    <div class="package-text">
+                        <div class="package-block-left-text">
+                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                <a href="/Hotel/Get/@hotel.Id">
+                                    @hotel.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                    <hr class="package-bottom-line">
+                </div>
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</section>
+<!-- SERVICE BOX END -->
+<div class="container ">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <hr />
+        </div>
+        <div class="col-1"></div>
     </div>
 </div>
+@if (Clubs.Any())
+{
+
+    <!-- SERVICE BOX START -->
+    <section class="ewebcraft-services4">
+        <div class="container ">
+            <div class="row">
+                <div class="main-text text-center">
+                    <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Clubs</h2>
+                </div>
+                @foreach (var club in Clubs)
+                {
+
+                    <div class="col-sm-4 package-block">
+                        <a href="/Club/Get/@club.Id">
+                        <div class="package-block-image">
+                            <img src="~/Images/package-image2_03.jpg" alt="@club.Name">
+                        </div>
+                        </a>
+                        <div class="package-text">
+                            <div class="package-block-left-text">
+                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                    <a href="/Club/Get/@club.Id">
+                                        @club.Name
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                        <hr class="package-bottom-line">
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- SERVICE BOX END -->
+    <div class="container ">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <hr />
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+}
+<!-- SERVICE BOX START -->
+<section class="ewebcraft-services4">
+    <div class="container ">
+        <div class="row">
+            <div class="main-text text-center">
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Restaurants</h2>
+            </div>
+
+            @foreach (var restaurant in Restaurants)
+            {
+
+                <div class="col-sm-4 package-block">
+                    <a href="/Restaurant/Get/@restaurant.Id">
+                    <div class="package-block-image">
+                        <img src="~/Images/package-image-3_05.jpg" alt="@restaurant.Name">
+                    </div>
+                    </a>
+                    <div class="package-text">
+                        <div class="package-block-left-text">
+                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                <a href="/Restaurant/Get/@restaurant.Id">
+                                    @restaurant.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                    <hr class="package-bottom-line">
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- SERVICE BOX END -->
+<div class="container ">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <hr />
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+<!-- SERVICE BOX START -->
+<section class="ewebcraft-services4">
+    <div class="container ">
+        <div class="row">
+            <div class="main-text text-center">
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Places</h2>
+            </div>
+
+            @foreach (var place in Places)
+            {
+
+                <div class="col-sm-4 package-block">
+                    <a href="/Place/Get/@place.Id">
+                        <div class="package-block-image">
+                            <img src="~/Images/package-image-3_05.jpg" alt="@place.Name">
+                        </div>
+                    </a>
+                    <div class="package-text">
+                        <div class="package-block-left-text">
+                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                <a href="/Place/Get/@place.Id">
+                                    @place.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                    <hr class="package-bottom-line">
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!-- SERVICE BOX END -->
+<!-- Testmonial start -->
+<section id="feedback" class="ewc-testimonials-1">
+    <div class="container ">
+        <div class="row">
+            <div class="col-sm-12 feaadback-heading text-center">
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">What Client’s says</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Testmonial end -->
+<!--start video-->
+
+<section id="video-box">
+    <div class="container ">
+        <div class="row">
+            <div class="video">
+                <iframe style="border:0; width:100%; height:360px;" src="http://www.youtube.com/embed/BrDlrytgm8?rel=0&amp;autoplay=0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--end video-->

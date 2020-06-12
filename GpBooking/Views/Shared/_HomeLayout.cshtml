@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking</title>
+
+    <!--pageMeta-->
+    <!-- Loading Bootstrap -->
+    <link href="~/Content/Home/css/bootstrap.css" rel="stylesheet" />
+    <!-- Loading Magnific-Popup Styles -->
+    <link href="~/Content/Home/css/magnific-popup.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/Home/css/animate-custom.css">
+
+    <!-- Loading Font Styles -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Home/css/font-awesome.css">
+
+    <!-- Loading Elements Styles -->
+    <link href="~/Content/Home/css/navigation-styles.css" rel="stylesheet">
+    <link href="~/Content/Home/css/styles.css" rel="stylesheet">
+    <link href="~/Content/Home/css/jquery.bxslider.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="scripts/html5shiv.js"></script>
+      <script src="scripts/respond.min.js"></script>
+    <![endif]-->
+    <!--headerIncludes-->
+    @RenderSection("csss", required: false)
+</head>
+<body data-spy="scroll" data-target=".navMenuCollapse">
+
+    <div id="wrap">
+
+
+        <section class="ewbcraft-topbar1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 header-base-block">
+                        <div class="headder-block">
+                            <div class="col-sm-2 col-xs-2 header-icon text-right">
+                                <img src="~/Images/header-png2_03.png" alt="your turst our business">
+                            </div>
+                            <div class="col-sm-10 header-icon text-left">
+                                <p>your turst our business</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 header-base-block">
+                        <div class="header-rotate">
+                            <div class="back-skew">
+                                <a href="tel:000-000-000-0">
+                                    <img src="~/Images/header-png1_03.png" alt="phone#">
+                                    for details call: 000-000-000-0
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 header-base-block">
+                        <div class="headder-block text-center">
+                            <div class="col-sm-2 col-xs-2 header-icon text-right">
+                                <img src="~/Images/header-png_03.png" alt="customer">
+                            </div>
+                            <div class="col-sm-10 header-icon text-left">
+                                <p>27/4 fully coustomer services</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        @RenderBody()
+        <div id="newsletter" class="ewc-subscription-3">
+            <div class="container inner-sub">
+                <div class="row">
+                    <div class="newsletter-icon text-center">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <div class="newsletter-block">
+                        @Html.Partial("_ContactUsPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="footer" class="ewc-footer-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 footer-block text-center">
+                        <img src="~/Images/Travel-icon_18.png" alt="map-icon">
+                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">ADDRESS</h3>
+                        <p>El-Minya , Egypt</p>
+                    </div>
+                    <div class="col-sm-4 footer-block text-center">
+                        <img src="~/Images/Travel-icon_24.png" alt="message">
+                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">contact</h3>
+                        <p>Via E-Mail</p>
+                    </div>
+                    <div class="col-sm-4 footer-block text-center">
+                        <img src="~/Images/Travel-icon_21.png" alt="phone">
+                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">phone</h3>
+                        <p>000-000-000-0</p>
+                    </div>
+                    <div class="col-sm-12 social-icon text-center">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-flickr"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-tumblr"></i></a>
+                    </div>
+                    <div class="col-sm-12 footer-bottom text-center">
+                        <a href="#">© 2020, All Rights Reserved</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /#wrap -->
+    <!-- JavaScript -->
+    <script src="~/Scripts/Home/jquery.js"></script>
+    <script src="~/Scripts/Home/bootstrap.min.js"></script>
+    <script src="~/Scripts/Home/smoothScroll.js" type="text/javascript"></script>
+    <script src="~/Scripts/Home/waypoints.js" type="text/javascript"></script>
+    <script src="~/Scripts/Home/script.js" type="text/javascript"></script>
+    <script src="~/Scripts/Home/jquery.bxslider.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

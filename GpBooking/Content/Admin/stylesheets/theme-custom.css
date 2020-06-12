@@ -1,0 +1,4 @@
+/* Add here all your CSS customizations */
+.sidebar-left .has-scrollbar .nano-content .nav-main .nav-parent .nav-children li a:hover {
+    background-color: #21262d;
+}
