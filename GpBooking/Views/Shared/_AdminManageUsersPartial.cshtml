@@ -1,0 +1,11 @@
+﻿@if (User.IsInRole("admin") || User.IsInRole("superadmin"))
+{
+    <li>
+        @* ReSharper disable once Html.PathError *@
+        <a role="menuitem" tabindex="-1" href="/Manage/ManageUsers"><i class="fa fa-users"></i> Manage Users</a>
+    </li>
+    <li>
+        @* ReSharper disable once Html.PathError *@
+        <a role="menuitem" tabindex="-1" href="/Manage/BackUpData"><i class="fa fa-database"></i> BackUp Data</a>
+    </li>
+}

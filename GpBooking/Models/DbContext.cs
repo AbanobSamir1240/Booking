@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GpBooking.Models
@@ -10,23 +12,28 @@ namespace GpBooking.Models
         {
         }
 
-        public static ApplicationDbContext Create()
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            return new ApplicationDbContext();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
         }
 
         public virtual DbSet<ApplicationLog> ApplicationLogs { get; set; }
-        public virtual DbSet<ClubsTbl> ClubsTbls { get; set; }
-        public virtual DbSet<HotelReservationsTbl> HotelReservationsTbls { get; set; }
-        public virtual DbSet<HotelRoomsTbl> HotelRoomsTbls { get; set; }
-        public virtual DbSet<HotelRoomTypesTbl> HotelRoomTypesTbls { get; set; }
-        public virtual DbSet<HotelServicesTbl> HotelServicesTbls { get; set; }
-        public virtual DbSet<HotelsTbl> HotelsTbls { get; set; }
-        public virtual DbSet<PlacesSubitemsTbl> PlacesSubitemsTbls { get; set; }
-        public virtual DbSet<PlacesTbl> PlacesTbls { get; set; }
-        public virtual DbSet<RestaurantDishsTbl> RestaurantDishsTbls { get; set; }
-        public virtual DbSet<RestaurantImagesTbl> RestaurantImagesTbls { get; set; }
-        public virtual DbSet<RestaurantsTbl> RestaurantsTbls { get; set; }
-        public virtual DbSet<UsersTbl> UsersTbls { get; set; }
+        public virtual DbSet<Club> Clubs { get; set; }
+        public virtual DbSet<HotelReservations> HotelReservations { get; set; }
+        public virtual DbSet<HotelRooms> HotelRooms { get; set; }
+        public virtual DbSet<HotelRoomType> HotelRoomTypes { get; set; }
+        public virtual DbSet<HotelServices> HotelServices { get; set; }
+        public virtual DbSet<Hotel> Hotels { get; set; }
+        public virtual DbSet<PlacesSubitems> PlacesSubitems { get; set; }
+        public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<RestaurantDishs> RestaurantDishs { get; set; }
+        public virtual DbSet<RestaurantImages> RestaurantImages { get; set; }
+        public virtual DbSet<Restaurant> Restaurants { get; set; }
+
+        public static ApplicationDbContext CreateDb()
+        {
+            return new ApplicationDbContext();
+        }
     }
 }

@@ -1,0 +1,6 @@
+﻿ @* ReSharper disable once Html.IdNotResolved *@
+ @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" , role = "menuitem", tabindex = "-1" }))
+{
+    @Html.AntiForgeryToken()
+    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
+}
