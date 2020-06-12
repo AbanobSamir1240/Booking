@@ -24,6 +24,7 @@ namespace GpBooking.Models
 
         [Required]
         public string About { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<PlacesSubitems> PlacesSubitems { get; set; }
     }

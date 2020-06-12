@@ -1,0 +1,18 @@
+﻿@model GpBooking.Models.ContactUs
+ @* ReSharper disable once Html.IdNotResolved *@
+ @using (Html.BeginForm("ContactUs", "Account", FormMethod.Post, new { @class="form-inline"  }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group firstname col-sm-9">
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control", placeholder = "Message" } })
+        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+    </div>
+        <div class="form-group col-sm-3">
+            <button type="submit" class="btn btn-default">
+                <i class="fa fa-paper-plane-o"></i>
+                Contact Us
+            </button>
+        </div>
+}

@@ -36,7 +36,7 @@ namespace GpBooking.Models
         public int Rating { get; set; }
 
         public string About { get; set; }
-
+        public string Image { get; set; }
         public virtual ICollection<HotelRooms> HotelRooms { get; set; }
 
         public virtual ICollection<HotelServices> HotelServices { get; set; }

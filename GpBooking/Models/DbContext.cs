@@ -18,6 +18,7 @@ namespace GpBooking.Models
             base.OnModelCreating(modelBuilder);
         }
 
+        public virtual DbSet<ContactUs> ContactUs { get; set; }
         public virtual DbSet<ApplicationLog> ApplicationLogs { get; set; }
         public virtual DbSet<Club> Clubs { get; set; }
         public virtual DbSet<HotelReservations> HotelReservations { get; set; }
@@ -28,7 +29,6 @@ namespace GpBooking.Models
         public virtual DbSet<PlacesSubitems> PlacesSubitems { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<RestaurantDishs> RestaurantDishs { get; set; }
-        public virtual DbSet<RestaurantImages> RestaurantImages { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
 
         public static ApplicationDbContext CreateDb()

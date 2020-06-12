@@ -21,5 +21,6 @@ namespace GpBooking.Models
         [StringLength(15)] public string Tel2 { get; set; }
 
         [Required] public string About { get; set; }
+        public string Image { get; set; }
     }
 }
