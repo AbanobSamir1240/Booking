@@ -35,6 +35,10 @@ namespace GpBooking.Controllers.Booking
             return View(hotel);
         }
 
+        public ActionResult Get()
+        {
+            return View("_HotelLayout");
+        }
         // GET: Hotel/Create
         public ActionResult Create()
         {

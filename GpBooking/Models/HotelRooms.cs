@@ -11,6 +11,10 @@ namespace GpBooking.Models
         public int Id { get; set; }
 
         public decimal Price { get; set; }
+
+        public int NumberOfBeds { get; set; }
+
+        public int NumberOfPersons { get; set; }
         [ForeignKey("HotelRoomType")]
         public int HotelRoomTypeId { get; set; }
 
