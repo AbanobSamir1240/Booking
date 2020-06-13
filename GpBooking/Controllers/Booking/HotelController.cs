@@ -34,6 +34,25 @@ namespace GpBooking.Controllers.Booking
             }
             return View(hotel);
         }
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Booking(int? Room)
+        {
+            if (Room == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var hotelRoom = _db.HotelRooms.FirstOrDefault(l => l.Id == Room);
+            if (hotelRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(hotelRoom);
+        }
+
         /*
         // GET: Hotel
         public ActionResult Index()
