@@ -135,9 +135,18 @@ namespace GpBooking.Controllers.Booking
             {
                 return HttpNotFound();
             }
-            return View("_RestaurantLayout" , restaurant);
+            return View(restaurant);
+        }
+
+
+
+        public void BookTable(ViewModel.BookTableViewModel model)
+        {
+
         }
     }
+
+   
 
 
 }

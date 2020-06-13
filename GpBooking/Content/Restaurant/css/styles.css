@@ -2844,8 +2844,42 @@ opacity:1 !important;
 
 /*----------------------> Banner <----------------------*/
 
+
+.ewebcraft-banner1 .hvr-sweep-to-right::before {
+    background: #fd482f none repeat scroll 0 0;
+}
+
+.ewebcraft-banner1 .btn {
+    background-color: #1f1f1f;
+    border: medium none;
+    border-radius: 0;
+    color: #fd4825;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 17px 27px;
+    text-transform: uppercase;
+}
+
+    .ewebcraft-banner1 .btn:hover {
+        background-color: #fd482f;
+        color: #fff;
+    }
+
+.ewebcraft-banner1 .banner-block .btn:hover::after {
+    color: #AE8648;
+}
+
+
+
+
+
+
+
+
+
 .ewebcraft-banner1 {
-    /*background-image: url(/Images/Rest-banner_02.jpg);*/
+    /*background-image: url(/Images/Restaurant/res-banner-1.jpg);*/
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
