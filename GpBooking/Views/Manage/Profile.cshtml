@@ -2,6 +2,7 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     var hotels = ViewBag.hotels as List<GpBooking.Models.HotelReservations>;
+    var clubs = ViewBag.clubs as List<GpBooking.Models.ClubReservations>;
 }
 @section title
 {
@@ -10,6 +11,7 @@
 <h2>Welcome @(GpBooking.Services.ApplicationUserService.GetUser().Name)</h2>
 @if (hotels.Any())
 {
+    <h3>Hotels</h3>
     <hr />
     foreach (var res in hotels)
     {
@@ -40,17 +42,70 @@
                 @if (!res.IsCheckIn)
                 {
 
-                <div>
-                    @Html.ActionLink("Edit Booking", "EditBooking", "Hotel", new {id = res.Id}, new {@class = "txt3"})
-                </div>
-                <div>
-                    <a href="#">
-                        <i class="txt3" onclick="openPopUp('/Hotel/DeleteBooking/@res.Id')">Delete Booking</i>
-                    </a>
-                </div>
-                <div>
-                    @Html.ActionLink("Check in", "Checkin", "Hotel", new {id = res.Id}, new {@class = "txt3"})
-                </div>
+                    <div>
+                        @Html.ActionLink("Edit Booking", "EditBooking", "Club", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
+                    <div>
+                        <a href="#">
+                            <i class="txt3" onclick="openPopUp('/Club/DeleteBooking/@res.Id')">Delete Booking</i>
+                        </a>
+                    </div>
+                    <div>
+                        @Html.ActionLink("Check in", "Checkin", "Club", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
+                }
+            </dd>
+            <dt></dt>
+            <dd>
+
+            </dd>
+        </dl>
+    }
+}
+@if (clubs.Any())
+{
+    <h3>Clubs</h3>
+    <hr />
+    foreach (var res in clubs)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => res.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.StartDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.EndDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.Club)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.Club.Name)
+            </dd>
+            <dt></dt>
+            <dd>
+                @if (!res.IsCheckIn)
+                {
+
+                    <div>
+                        @Html.ActionLink("Edit Booking", "EditBooking", "Club", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
+                    <div>
+                        <a href="#">
+                            <i class="txt3" onclick="openPopUp('/Club/DeleteBooking/@res.Id')">Delete Booking</i>
+                        </a>
+                    </div>
+                    <div>
+                        @Html.ActionLink("Check in", "Checkin", "Club", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
                 }
             </dd>
             <dt></dt>

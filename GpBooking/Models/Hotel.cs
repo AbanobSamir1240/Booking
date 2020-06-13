@@ -12,7 +12,9 @@ namespace GpBooking.Models
             HotelRooms = new HashSet<HotelRooms>();
             HotelServices = new HashSet<HotelServices>();
         }
+
         [Key]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

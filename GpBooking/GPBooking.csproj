@@ -187,6 +187,7 @@
     <Compile Include="Models\ApplicationLog.cs" />
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\DbContext.cs" />
+    <Compile Include="Models\ClubReservations.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Services\ApplicationService.cs" />
@@ -410,6 +411,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\Emails\2.txt" />
     <Content Include="Files\Emails\1.txt" />
     <Content Include="Files\ReadMe.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -769,31 +771,17 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Shared\_HotelLayout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Shared\_RestaurantLayout.cshtml" />
     <Content Include="Views\Shared\_ContactUsPartial.cshtml" />
-    <Content Include="Views\Club\Create.cshtml" />
-    <Content Include="Views\Club\Delete.cshtml" />
-    <Content Include="Views\Club\Details.cshtml" />
-    <Content Include="Views\Club\Edit.cshtml" />
-    <Content Include="Views\Club\Index.cshtml" />
-    <Content Include="Views\Place\Create.cshtml" />
-    <Content Include="Views\Place\Delete.cshtml" />
-    <Content Include="Views\Place\Details.cshtml" />
-    <Content Include="Views\Place\Edit.cshtml" />
-    <Content Include="Views\Place\Index.cshtml" />
+    <Content Include="Views\Place\Get.cshtml" />
     <Content Include="Views\Restaurant\Create.cshtml" />
     <Content Include="Views\Restaurant\Delete.cshtml" />
     <Content Include="Views\Restaurant\Details.cshtml" />
     <Content Include="Views\Restaurant\Edit.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
-    <Content Include="Views\Hotel\Create.cshtml" />
-    <Content Include="Views\Hotel\Delete.cshtml" />
     <Content Include="Views\Hotel\Get.cshtml" />
-    <Content Include="Views\Hotel\Edit.cshtml" />
-    <Content Include="Views\Hotel\Index.cshtml" />
     <Content Include="Views\Hotel\Booking.cshtml" />
     <Content Include="Views\Account\EmailNotConfirm.cshtml" />
     <Content Include="Views\Hotel\_BookingRoom.cshtml" />
@@ -801,6 +789,12 @@
     <Content Include="Views\Manage\Profile.cshtml" />
     <Content Include="Views\Hotel\EditBooking.cshtml" />
     <Content Include="Views\Hotel\Checkin.cshtml" />
+    <Content Include="Views\Club\Get.cshtml" />
+    <Content Include="Views\Club\EditBooking.cshtml" />
+    <Content Include="Views\Club\Checkin.cshtml" />
+    <Content Include="Views\Club\BookingConfirm.cshtml" />
+    <Content Include="Views\Club\Booking.cshtml" />
+    <Content Include="Views\Club\_BookingClub.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

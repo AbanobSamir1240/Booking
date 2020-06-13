@@ -1,0 +1,62 @@
+﻿@model GpBooking.Models.ClubReservations
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@section title
+{
+    Check in
+}
+<div>
+    <h4>Hotel Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Club
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Name)
+        </dd>
+        <dt>
+            Hotel Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Address)
+        </dd>
+        <dt>
+            Hotel Tel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Tel1)
+        </dd>
+        <dt>
+            StartDate
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            EndDate
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt>
+            PaymentType
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentType)
+        </dd>
+        @using (Html.BeginForm("Checkin", "Club", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login100-form validate-form flex-sb flex-w", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="Id" name="CheckId" type="hidden" value="1">
+            <div class="container-login100-form-btn">
+                <input type="submit" value="Check-In" class="login100-form-btn" />
+            </div>
+        }
+    </dl>
+</div>

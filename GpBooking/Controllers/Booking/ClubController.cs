@@ -1,127 +1,206 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using GpBooking.Models;
+using GpBooking.Services;
 
-namespace GpBooking.Controllers.Test
+namespace GpBooking.Controllers.Booking
 {
     public class ClubController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db;
 
-        // GET: Club
-        public ActionResult Index()
+        public ClubController()
         {
-            return View(db.Clubs.ToList());
+            _db = new ApplicationDbContext();
         }
 
+        [AllowAnonymous]
         // GET: Club/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Get(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
-            Club club = db.Clubs.Find(id);
+
+            Club club = _db.Clubs.Find(id);
             if (club == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
+
+            ViewBag.Checkin =
+                _db.ClubReservationses.Count(l => l.StartDate <= DateTime.Today && l.EndDate >= DateTime.Today) == 0;
             return View(club);
         }
 
-        // GET: Club/Create
-        public ActionResult Create()
+        [HttpGet]
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Booking(int? club)
         {
-            return View();
+            if (club == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var clubRoom = _db.Clubs.FirstOrDefault(l => l.Id == club);
+            if (clubRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(clubRoom);
         }
 
-        // POST: Club/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = RoleName.All)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,About")] Club club)
+        public ActionResult Booking(ClubReservations reservation)
         {
             if (ModelState.IsValid)
             {
-                db.Clubs.Add(club);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (reservation.Id == 0)
+                {
+                    _db.ClubReservationses.Add(new ClubReservations()
+                    {
+                        
+                        ApplicationUserId = ApplicationUserService.GetUserId(),
+                        EndDate = reservation.EndDate,
+                        ClubId = reservation.ClubId,
+                        PaymentType = reservation.PaymentType,
+                        StartDate = reservation.StartDate,
+                        ReservationDate = DateTime.Now,
+                    });
+                    _db.SaveChanges();
+                    var body =
+                        $"{MailService.HandleTwo(FileService.ReadFile(Server.MapPath("~/Files/Emails/2.txt")), new ClubReservations() { EndDate = reservation.EndDate, PaymentType = reservation.PaymentType, StartDate = reservation.StartDate, ReservationDate = DateTime.Now, ApplicationUser = ApplicationUserService.GetUser(), Club = _db.Clubs.FirstOrDefault(l => l.Id == reservation.ClubId), })}";
+                    MailService.SendMail(Services.ApplicationUserService.GetUser().Email,
+                        "Booking Confirmation", body);
+                    return View("BookingConfirm");
+                }
+                else
+                {
+                    var currentUser = ApplicationUserService.GetUserId();
+                    var ClubRes = _db.ClubReservationses.FirstOrDefault(l =>
+                        l.Id == reservation.Id && l.ApplicationUserId == currentUser);
+                    if (ClubRes != null)
+                    {
+
+                        ClubRes.EndDate = reservation.EndDate;
+                        ClubRes.ClubId = reservation.ClubId;
+                        ClubRes.PaymentType = reservation.PaymentType;
+                        ClubRes.StartDate = reservation.StartDate;
+                        _db.Entry(ClubRes).State = EntityState.Modified;
+                        _db.SaveChanges();
+                    }
+
+                    return RedirectToAction("Profile", "Manage");
+                }
             }
 
-            return View(club);
-        }
-
-        // GET: Club/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Club club = db.Clubs.Find(id);
-            if (club == null)
-            {
-                return HttpNotFound();
-            }
-            return View(club);
-        }
-
-        // POST: Club/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,About")] Club club)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(club).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(club);
-        }
-
-        // GET: Club/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Club club = db.Clubs.Find(id);
-            if (club == null)
-            {
-                return HttpNotFound();
-            }
-            return View(club);
-        }
-
-        // POST: Club/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Club club = db.Clubs.Find(id);
-            db.Clubs.Remove(club);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Booking", new { Room = reservation.ClubId });
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
+
             base.Dispose(disposing);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult BookingRoom(int Room)
+        {
+            return PartialView("_BookingClub", new ClubReservations()
+            {
+                Club = _db.Clubs.FirstOrDefault(l => l.Id == Room),
+                Id = 0,
+                StartDate = DateTime.Today,
+                ApplicationUserId = Services.ApplicationUserService.GetUserId(),
+                ClubId = Room,
+                PaymentType = PaymentType.Cash,
+                ReservationDate = DateTime.Today
+            });
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult EditBooking(int? id)
+        {
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var ClubRoom = _db.ClubReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (ClubRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(ClubRoom);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Checkin(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var ClubRoom = _db.ClubReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (ClubRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(ClubRoom);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleName.All)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Checkin(int CheckId)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var ClubRes = _db.ClubReservationses.FirstOrDefault(l =>
+                l.Id == CheckId && l.ApplicationUserId == currentUser);
+            if (ClubRes != null)
+            {
+
+                ClubRes.IsCheckIn = !ClubRes.IsCheckIn;
+                _db.Entry(ClubRes).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult DeleteBooking(int id)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var ClubRes = _db.ClubReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (ClubRes != null)
+            {
+                _db.Entry(ClubRes).State = EntityState.Deleted;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
         }
     }
 }

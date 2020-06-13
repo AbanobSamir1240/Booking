@@ -1,0 +1,50 @@
+﻿@model GpBooking.Models.ClubReservations
+@{
+    ViewBag.Title = "EditBooking";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@section title
+{
+    Edit Booking
+}
+
+<div>
+    <h4>Club</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Club
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Name)
+        </dd>
+        <dt>
+            Club Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Address)
+        </dd>
+        <dt>
+            Club Tel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Tel1)
+        </dd>
+        <dt></dt>
+        <dd>
+            @Html.Partial("_BookingClub", model:Model)
+        </dd>
+    </dl>
+</div>
+@section scripts{
+    <script>
+        $(() => {
+            $(".datepicker").datepicker();
+        });
+    </script>
+}

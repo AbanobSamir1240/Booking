@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GpBooking.Models;
+using GpBooking.Services;
 
 namespace GpBooking.Controllers
 {
@@ -38,9 +39,11 @@ namespace GpBooking.Controllers
             private set { _userManager = value; }
         }
 
-        public ActionResult Profile()
+        public new ActionResult Profile()
         {
-            ViewBag.hotels = _db.HotelReservations.ToList();
+            var currentUser = ApplicationUserService.GetUserId();
+            ViewBag.hotels = _db.HotelReservations.Where(l=>l.ApplicationUserId==currentUser).ToList();
+            ViewBag.clubs = _db.ClubReservationses.Where(l => l.ApplicationUserId == currentUser).ToList();
             return View();
         }
 

@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GpBooking.Models
 {
-    [Table("HotelReservations")]
-    public class HotelReservations
+    [Table("ClubReservations")]
+    public class ClubReservations
     {
+
 
         [Key]
         [Column(Order = 0)]
@@ -16,8 +17,8 @@ namespace GpBooking.Models
         [ForeignKey("ApplicationUser")] public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
-        [ForeignKey("HotelRooms")] public int HotelRoomsId { get; set; }
-        public virtual HotelRooms HotelRooms { get; set; }
+        [ForeignKey("Club")] public int ClubId { get; set; }
+        public virtual Club Club { get; set; }
 
         [DataType(DataType.Date)] public DateTime ReservationDate { get; set; }
 
