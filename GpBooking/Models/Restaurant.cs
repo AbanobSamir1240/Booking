@@ -12,8 +12,10 @@ namespace GpBooking.Models
             RestaurantDishs = new HashSet<RestaurantDishs>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required] public string ShortName { get; set; }

@@ -9,7 +9,14 @@
         <div class="row text-center">
             <div class="col-md-12 col-sm-6 banner-text">
                 <h3>Save more on your next hotel</h3>
-                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">welcome to <span>travel area</span></h2>
+                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                    welcome
+                    <a href="/Manage/Profile">
+                    <span>
+                        @(GpBooking.Services.ApplicationUserService.GetUser()?.Name)
+                    </span>
+                    </a>
+                </h2>
                 <p>
                     Thousands of deals made every day
                 </p>

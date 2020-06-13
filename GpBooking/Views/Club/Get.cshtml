@@ -1,0 +1,41 @@
+﻿@model GpBooking.Models.Club
+
+@{
+    Layout = "~/Views/Shared/_HotelLayout.cshtml";
+}
+@section HotelName
+{
+    @Model.Name
+}
+
+<section class="ewc-content-10">
+    <div class="container">
+        <div class="row">
+            <div class="pmain_block text-center">
+                <h3>About </h3>
+                <p>
+                    @Model.About
+                </p>
+            </div>
+    @if (ViewBag.Checkin is bool && (bool) ViewBag.Checkin)
+    {
+
+            <div class="row">
+                <div class="pmain_block text-center">
+                <a href="/Club/Booking?club=@Model.Id">
+                    <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">
+                        <span>
+                            Book Now
+                        </span>
+                    </h4>
+                </a>
+            </div>
+            </div>
+    }
+        </div>
+    </div>
+</section><!--start video-->
+<section id="clients-logo-slider" class="slider-bgGray text-center">
+    <h3>Address : @Model.Address</h3>
+    <h3>Tel : @Model.Tel1</h3>
+</section>

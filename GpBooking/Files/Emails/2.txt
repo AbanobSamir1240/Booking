@@ -1,0 +1,73 @@
+    <div dir="auto">
+      Dear  -user- name&nbsp;
+      <div dir="auto">
+        <br />
+      </div>
+	  That Info. Confirm Your bookings:
+	  <br/>
+      <div dir="auto">
+        <hr />
+    <dl class="dl-horizontal">
+        </dd>
+        <dt>
+            Club
+        </dt>
+
+        <dd>
+          -ClubName-
+        </dd>
+        <dt>
+            Club Address
+        </dt>
+
+        <dd>
+          -Address-
+        </dd>
+        <dt>
+            Club Tel
+        </dt>
+
+        <dd>
+            -Tel1-
+        </dd>
+	<dt>
+           Reservation Date
+        </dt>
+
+        <dd>
+            -ReservationDate-
+        </dd>
+
+			<dt>
+           Start Date
+        </dt>
+
+        <dd>
+            -StartDate-
+        </dd>
+					<dt>
+           End Date
+        </dt>
+
+        <dd>
+            -EndDate-
+        </dd>
+							<dt>
+           PaymentType
+        </dt>
+
+        <dd>
+            -PaymentType-
+        </dd>
+		 </dl>
+      </div>
+      <div dir="auto">
+        <br />
+      </div>
+      <div dir="auto">
+        Thanks&nbsp;
+      </div>
+      <div dir="auto">
+        <br />
+      </div>
+	  </div>

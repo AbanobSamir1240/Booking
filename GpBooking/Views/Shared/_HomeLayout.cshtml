@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using GpBooking.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -81,7 +82,7 @@
                         <i class="fa fa-envelope-o"></i>
                     </div>
                     <div class="newsletter-block">
-                        @Html.Partial("_ContactUsPartial")
+                        @Html.Partial("_ContactUsPartial", model: new ContactUs())
                     </div>
                 </div>
             </div>

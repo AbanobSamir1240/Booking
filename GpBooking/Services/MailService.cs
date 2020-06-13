@@ -50,6 +50,32 @@ namespace GpBooking.Services
             return result;
         }
 
+        public static string HandleOne(string mail, HotelReservations hotelReservation)
+        {
+            mail = mail.Replace("-user-", hotelReservation.ApplicationUser.Name);
+            mail = mail.Replace("-TypeName-", hotelReservation.HotelRooms.HotelRoomType.TypeName);
+            mail = mail.Replace("-Price-", hotelReservation.HotelRooms.Price.ToString());
+            mail = mail.Replace("-HotelName-", hotelReservation.HotelRooms.Hotel.Name);
+            mail = mail.Replace("-Address-", hotelReservation.HotelRooms.Hotel.Address);
+            mail = mail.Replace("-Tel1-", hotelReservation.HotelRooms.Hotel.Tel1);
+            mail = mail.Replace("-ReservationDate-", hotelReservation.ReservationDate.ToString());
+            mail = mail.Replace("-StartDate-", hotelReservation.StartDate.ToString());
+            mail = mail.Replace("-EndDate-", hotelReservation.EndDate.ToString());
+            mail = mail.Replace("-PaymentType-", hotelReservation.PaymentType.ToString());
+            return mail;
+        }
 
+        public static string HandleTwo(string mail, ClubReservations clubReservations)
+        {
+            mail = mail.Replace("-user-", clubReservations.ApplicationUser.Name);
+            mail = mail.Replace("-ClubName-", clubReservations.Club.Name);
+            mail = mail.Replace("-Address-", clubReservations.Club.Address);
+            mail = mail.Replace("-Tel1-", clubReservations.Club.Tel1);
+            mail = mail.Replace("-ReservationDate-", clubReservations.ReservationDate.ToString());
+            mail = mail.Replace("-StartDate-", clubReservations.StartDate.ToString());
+            mail = mail.Replace("-EndDate-", clubReservations.EndDate.ToString());
+            mail = mail.Replace("-PaymentType-", clubReservations.PaymentType.ToString());
+            return mail;
+        }
     }
 }

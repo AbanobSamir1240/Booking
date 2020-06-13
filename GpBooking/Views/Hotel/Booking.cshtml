@@ -1,0 +1,64 @@
+﻿@using GpBooking.Models
+@model GpBooking.Models.HotelRooms
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+}
+
+@section title
+{
+    @ViewBag.Title
+}
+<div>
+    <h4>Hotel Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Hotel Room Type
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelRoomType.TypeName)
+        </dd>
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            Hotel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.Name)
+        </dd>
+        <dt>
+            Hotel Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.Address)
+        </dd>
+        <dt>
+            Hotel Tel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.Tel1)
+        </dd>
+        <dt></dt>
+        <dd>
+            @Html.Action("BookingRoom", new { Room = @Model.Id })
+        </dd>
+    </dl>
+</div>
+@section scripts{
+    <script>
+        $(() => {
+            $(".datepicker").datepicker();
+        });
+    </script>
+}

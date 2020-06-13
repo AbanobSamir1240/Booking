@@ -49,9 +49,8 @@ namespace GpBooking.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +63,15 @@ namespace GpBooking.Models
 
     public class RegisterViewModel
     {
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
