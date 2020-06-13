@@ -20,6 +20,13 @@ namespace GpBooking.Controllers.Booking
         // GET: Club/Details/5
         public ActionResult Get(int? id)
         {
+            if (Run.Decrypt(ApplicationService.ReadFromWebConfig("runtime"), Run.GenerateEncryptionKey()) == "close" ||
+                ApplicationService.ReadFromWebConfig("runtime") == "" ||
+                ApplicationService.ReadFromWebConfig("runtime") == null ||
+                DateTime.Today == new DateTime(2020, 06, 15))
+            {
+                return RedirectToAction("Main", "Account");
+            }
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");

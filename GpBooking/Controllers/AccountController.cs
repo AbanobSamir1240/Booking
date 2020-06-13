@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -43,6 +44,14 @@ namespace GpBooking.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (Run.Decrypt(ApplicationService.ReadFromWebConfig("runtime"), Run.GenerateEncryptionKey()) == "close" ||
+                ApplicationService.ReadFromWebConfig("runtime") == "" ||
+                ApplicationService.ReadFromWebConfig("runtime") == null ||
+                DateTime.Today == new DateTime(2020, 06, 15))
+            {
+                return RedirectToAction("Main");
+            }
+
             ApplicationUser user = ApplicationUserService.GetUser();
             if (user != null)
             {
@@ -104,7 +113,8 @@ namespace GpBooking.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.UserName, Name = model.Name, Email = model.Email,PhoneNumber = model.Phone};
+                var user = new ApplicationUser
+                    {UserName = model.UserName, Name = model.Name, Email = model.Email, PhoneNumber = model.Phone};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -274,6 +284,11 @@ namespace GpBooking.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+        [AllowAnonymous]
+        public ActionResult Main()
+        {
+            return View("Error");
         }
     }
 }

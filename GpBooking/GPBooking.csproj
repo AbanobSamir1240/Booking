@@ -195,6 +195,7 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Services\Run.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

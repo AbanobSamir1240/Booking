@@ -22,6 +22,13 @@ namespace GpBooking.Controllers.Booking
         [Authorize(Roles = RoleName.All)]
         public ActionResult Booking(int? Table)
         {
+            if (Run.Decrypt(ApplicationService.ReadFromWebConfig("runtime"), Run.GenerateEncryptionKey()) == "close" ||
+                ApplicationService.ReadFromWebConfig("runtime") == "" ||
+                ApplicationService.ReadFromWebConfig("runtime") == null ||
+                DateTime.Today == new DateTime(2020, 06, 15))
+            {
+                return RedirectToAction("Main", "Account");
+            }
             if (Table == null)
             {
                 return RedirectToAction("Index", "Home");

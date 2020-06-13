@@ -40,7 +40,7 @@ namespace GpBooking.Services
                 };
                 msg.To.Add(new MailAddress(to));
 
-                //client.Send(msg);
+                client.Send(msg);
             }
             catch (Exception exception)
             {
