@@ -454,7 +454,6 @@
     <Content Include="Images\RealEstate_12.png" />
     <Content Include="Images\RealEstate_14.png" />
     <Content Include="Images\RealEstate_15.png" />
-    <Content Include="Images\Rest-banner_02.jpg" />
     <Content Include="Images\Restaurant\res-banner-2.jpg" />
     <Content Include="Images\Restaurant\res-banner-3.jpg" />
     <Content Include="Images\Restaurant\res-banner-4.jpg" />
@@ -468,6 +467,7 @@
     <Content Include="Images\Restaurant\res-dish-6.jpg" />
     <Content Include="Images\service-3.png" />
     <Content Include="Images\tour-img_03.jpg" />
+    <Content Include="Images\Travel-banner_02.jpg" />
     <Content Include="Images\Travel-icon_03.png" />
     <Content Include="Images\Travel-icon_05.png" />
     <Content Include="Images\Travel-icon_08.png" />
@@ -792,7 +792,6 @@
     <Content Include="Views\Restaurant\Details.cshtml" />
     <Content Include="Views\Restaurant\Edit.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
-
     <Content Include="Views\Hotel\Get.cshtml" />
     <Content Include="Views\Hotel\Booking.cshtml" />
     <Content Include="Views\Account\EmailNotConfirm.cshtml" />
