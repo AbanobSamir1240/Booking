@@ -1,15 +1,14 @@
-﻿@using GpBooking.Models
-@model GpBooking.Models.HotelRooms
+﻿@model GpBooking.Models.HotelReservations
 @{
-    ViewBag.Title = "Booking";
+    ViewBag.Title = "EditBooking";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
-
 }
 
 @section title
 {
-    @ViewBag.Title
+    EditBooking
 }
+
 <div>
     <h4>Hotel Room</h4>
     <hr />
@@ -19,39 +18,39 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HotelRoomType.TypeName)
+            @Html.DisplayFor(model => model.HotelRooms.HotelRoomType.TypeName)
         </dd>
         <dt>
             Price
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.HotelRooms.Price)
         </dd>
         <dt>
             Hotel
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hotel.Name)
+            @Html.DisplayFor(model => model.HotelRooms.Hotel.Name)
         </dd>
         <dt>
             Hotel Address
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hotel.Address)
+            @Html.DisplayFor(model => model.HotelRooms.Hotel.Address)
         </dd>
         <dt>
             Hotel Tel
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hotel.Tel1)
+            @Html.DisplayFor(model => model.HotelRooms.Hotel.Tel1)
         </dd>
         <dt></dt>
         <dd>
-            @Html.Action("BookingRoom", new { Room = @Model.Id })
+            @Html.Partial("_BookingRoom", model:Model)
         </dd>
     </dl>
 </div>

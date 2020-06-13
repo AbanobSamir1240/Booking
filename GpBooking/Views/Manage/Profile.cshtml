@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    var hotels = ViewBag.hotels as List<GpBooking.Models.HotelReservations>;
+}
+@section title
+{
+    Profile
+}
+<h2>Welcome @(GpBooking.Services.ApplicationUserService.GetUser().Name)</h2>
+@if (hotels.Any())
+{
+    <hr />
+    foreach (var res in hotels)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => res.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.StartDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.EndDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.HotelRooms.Hotel)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.HotelRooms.Hotel.Name)
+            </dd>
+            <dt></dt>
+            <dd>
+                @if (!res.IsCheckIn)
+                {
+
+                <div>
+                    @Html.ActionLink("Edit Booking", "EditBooking", "Hotel", new {id = res.Id}, new {@class = "txt3"})
+                </div>
+                <div>
+                    <a href="#">
+                        <i class="txt3" onclick="openPopUp('/Hotel/DeleteBooking/@res.Id')">Delete Booking</i>
+                    </a>
+                </div>
+                <div>
+                    @Html.ActionLink("Check in", "Checkin", "Hotel", new {id = res.Id}, new {@class = "txt3"})
+                </div>
+                }
+            </dd>
+            <dt></dt>
+            <dd>
+
+            </dd>
+        </dl>
+    }
+}
+<hr />
+<div>
+    @Html.ActionLink("Change Password", "ChangePassword", "Manage", new { }, new { @class = "txt3" })
+</div>
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", role = "menuitem", tabindex = "-1" }))
+{
+    @Html.AntiForgeryToken()
+    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a>
+}

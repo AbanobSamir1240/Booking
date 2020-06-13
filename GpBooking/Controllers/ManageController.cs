@@ -14,9 +14,10 @@ namespace GpBooking.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly ApplicationDbContext _db;
         public ManageController()
         {
+            _db=new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -35,6 +36,12 @@ namespace GpBooking.Controllers
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
+        }
+
+        public ActionResult Profile()
+        {
+            ViewBag.hotels = _db.HotelReservations.ToList();
+            return View();
         }
 
         //
@@ -78,6 +85,7 @@ namespace GpBooking.Controllers
         {
             if (disposing && _userManager != null)
             {
+                _db.Dispose();
                 _userManager.Dispose();
                 _userManager = null;
             }

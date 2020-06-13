@@ -7,12 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GpBooking.Models;
+using GpBooking.Services;
 
 namespace GpBooking.Controllers.Booking
 {
     public class HotelController : Controller
     {
-        private readonly ApplicationDbContext _db ;
+        private readonly ApplicationDbContext _db;
 
         public HotelController()
         {
@@ -27,11 +28,13 @@ namespace GpBooking.Controllers.Booking
             {
                 return RedirectToAction("Index", "Home");
             }
+
             Hotel hotel = _db.Hotels.Find(id);
             if (hotel == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+
             return View(hotel);
         }
 
@@ -53,99 +56,153 @@ namespace GpBooking.Controllers.Booking
             return View(hotelRoom);
         }
 
-        /*
-        // GET: Hotel
-        public ActionResult Index()
-        {
-            return View(_db.Hotels.ToList());
-        }
-        // GET: Hotel/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Hotel/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = RoleName.All)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,Rating,About,Image")] Hotel hotel)
+        public ActionResult Booking(HotelReservations reservation)
         {
             if (ModelState.IsValid)
             {
-                _db.Hotels.Add(hotel);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                if (reservation.Id == 0)
+                {
+
+                    _db.HotelReservations.Add(new HotelReservations()
+                    {
+                        ApplicationUserId = ApplicationUserService.GetUserId(),
+                        EndDate = reservation.EndDate,
+                        HotelRoomsId = reservation.HotelRoomsId,
+                        PaymentType = reservation.PaymentType,
+                        StartDate = reservation.StartDate,
+                        ReservationDate = DateTime.Now
+                    });
+                    _db.SaveChanges();
+                    var body =
+                        $"{MailService.HandleOne(FileService.ReadFile(Server.MapPath("~/Files/Emails/1.txt")), new HotelReservations() {EndDate = reservation.EndDate, PaymentType = reservation.PaymentType, StartDate = reservation.StartDate, ReservationDate = DateTime.Now, ApplicationUser = ApplicationUserService.GetUser(), HotelRooms = _db.HotelRooms.FirstOrDefault(l => l.Id == reservation.HotelRoomsId),})}";
+                    MailService.SendMail(Services.ApplicationUserService.GetUser().Email,
+                        "Booking Confirmation", body);
+                    return View("BookingConfirm");
+                }
+                else
+                {
+                    var currentUser = ApplicationUserService.GetUserId();
+                    var hotelRes = _db.HotelReservations.FirstOrDefault(l =>
+                        l.Id == reservation.Id && l.ApplicationUserId == currentUser);
+                    if (hotelRes != null)
+                    {
+
+                        hotelRes.EndDate = reservation.EndDate;
+                        hotelRes.HotelRoomsId = reservation.HotelRoomsId;
+                        hotelRes.PaymentType = reservation.PaymentType;
+                        hotelRes.StartDate = reservation.StartDate;
+                        _db.Entry(hotelRes).State = EntityState.Modified;
+                        _db.SaveChanges();
+                    }
+
+                    return RedirectToAction("Profile", "Manage");
+                }
             }
 
-            return View(hotel);
+            return RedirectToAction("Booking", new {Room = reservation.HotelRoomsId});
         }
 
-        // GET: Hotel/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hotel hotel = _db.Hotels.Find(id);
-            if (hotel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel);
-        }
-
-        // POST: Hotel/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,Rating,About,Image")] Hotel hotel)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(hotel).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(hotel);
-        }
-
-        // GET: Hotel/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hotel hotel = _db.Hotels.Find(id);
-            if (hotel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotel);
-        }
-
-        // POST: Hotel/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Hotel hotel = _db.Hotels.Find(id);
-            _db.Hotels.Remove(hotel);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 _db.Dispose();
             }
+
             base.Dispose(disposing);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult BookingRoom(int Room)
+        {
+            return PartialView("_BookingRoom", new HotelReservations()
+            {
+                HotelRooms = _db.HotelRooms.FirstOrDefault(l => l.Id == Room),
+                Id = 0,
+                StartDate = DateTime.Today,
+                ApplicationUserId = Services.ApplicationUserService.GetUserId(),
+                HotelRoomsId = Room,
+                PaymentType = PaymentType.Cash,
+                ReservationDate = DateTime.Today
+            });
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult EditBooking(int? id)
+        {
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var hotelRoom = _db.HotelReservations.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (hotelRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(hotelRoom);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Checkin(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var hotelRoom = _db.HotelReservations.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (hotelRoom == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(hotelRoom);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleName.All)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Checkin(int CheckId)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var hotelRes = _db.HotelReservations.FirstOrDefault(l =>
+                l.Id == CheckId && l.ApplicationUserId == currentUser);
+            if (hotelRes != null)
+            {
+
+                hotelRes.IsCheckIn = !hotelRes.IsCheckIn;
+                _db.Entry(hotelRes).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult DeleteBooking(int id)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var hotelRes = _db.HotelReservations.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (hotelRes != null)
+            {
+                _db.Entry(hotelRes).State = EntityState.Deleted;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
         }
     }
 }
