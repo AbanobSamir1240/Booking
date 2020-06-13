@@ -15,7 +15,7 @@ namespace GpBooking
             ConfigureAuth(app);
             CreateRoles("admin");
             CreateRoles("user");
-            CreateUser("admin@admin.com", "admin", "TT123456", "admin");
+            CreateUser("admin", "admin@admin.com", "KKsa123+45", "admin");
         }
 
         private void CreateRoles(string roleName)
@@ -44,7 +44,7 @@ namespace GpBooking
             {
                 UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(db);
                 UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
-                ApplicationUser user = new ApplicationUser() {UserName = username, Email = email};
+                ApplicationUser user = new ApplicationUser() { UserName = username, Email = email, Name = username };
                 IdentityResult result = userManager.Create(user, password);
                 if (result.Succeeded)
                 {

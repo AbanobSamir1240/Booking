@@ -1,0 +1,119 @@
+﻿@model GpBooking.Models.Hotel
+
+@{
+    Layout = "~/Views/Shared/_HotelLayout.cshtml";
+}
+@section HotelName
+{
+    @Model.Name
+}
+
+<section class="ewc-content-10">
+    <div class="container">
+        <div class="row">
+            <div class="pmain_block text-center">
+                <h3>About </h3>
+                <p>
+                    @Model.About
+                </p>
+            </div>
+            <div class="prooerty_block">
+                @foreach (var room in Model.HotelRooms.OrderBy(l=>l.Price))
+                {
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>@room.HotelRoomType.TypeName</h4>
+                        <img src="/Images/RealEstate_03.jpg" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>Price:<span class="margin-right">@room.Price</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">
+                            <span>Book Now</span>
+                        </h4>
+                    </div>
+                </div>
+                }
+                @*<div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>Apartment d-1</h4>
+                        <img src="/Images/RealEstate_05.png" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>floors:<span class="margin-right">3</span> Bathrooms:<span>3</span></p>
+                            <p>Rooms:<span class="margin-right">4</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">Book Now</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>Apartment d-1</h4>
+                        <img src="/Images/RealEstate_07.png" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>floors:<span class="margin-right">3</span> Bathrooms:<span>3</span></p>
+                            <p>Rooms:<span class="margin-right">4</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">Book Now</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>Apartment d-1</h4>
+                        <img src="/Images/RealEstate_12.png" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>floors:<span class="margin-right">3</span> Bathrooms:<span>3</span></p>
+                            <p>Rooms:<span class="margin-right">4</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">Book Now</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>Apartment d-1</h4>
+                        <img src="/Images/RealEstate_14.png" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>floors:<span class="margin-right">3</span> Bathrooms:<span>3</span></p>
+                            <p>Rooms:<span class="margin-right">4</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">Book Now</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 text-center">
+                    <div class="property_item">
+                        <h4>Apartment d-1</h4>
+                        <img src="/Images/RealEstate_15.png" class="hvr-bob img-responsive" alt="property images">
+                        <div class="pinfo">
+                            <p>floors:<span class="margin-right">3</span> Bathrooms:<span>3</span></p>
+                            <p>Rooms:<span class="margin-right">4</span> Available:<span>3</span></p>
+                        </div>
+                        <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">Book Now</h4>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</section><!--start video-->
+
+<section class="ewc-video-4">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-1"></div>
+            <div class="col-10  videotext">
+                <h3>Enjoy With Us</h3>
+                <h4>Hotel Services</h4>
+                <ul>
+                    @foreach (var ser in Model.HotelServices)
+                    {
+                        <li>@ser.Service</li>
+                    }
+                </ul>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</section>
+
+<section id="clients-logo-slider" class="slider-bgGray text-center">
+    <h3>Address : @Model.Address</h3>
+    <h3>Tel : @Model.Tel1</h3>
+</section>

@@ -12,29 +12,34 @@ namespace GpBooking.Controllers.Booking
 {
     public class HotelController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db ;
 
-        // GET: Hotel
-        public ActionResult Index()
+        public HotelController()
         {
-            return View(db.Hotels.ToList());
+            _db = new ApplicationDbContext();
         }
 
+        [AllowAnonymous]
         // GET: Hotel/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Get(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
-            Hotel hotel = db.Hotels.Find(id);
+            Hotel hotel = _db.Hotels.Find(id);
             if (hotel == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
             return View(hotel);
         }
-
+        /*
+        // GET: Hotel
+        public ActionResult Index()
+        {
+            return View(_db.Hotels.ToList());
+        }
         // GET: Hotel/Create
         public ActionResult Create()
         {
@@ -50,8 +55,8 @@ namespace GpBooking.Controllers.Booking
         {
             if (ModelState.IsValid)
             {
-                db.Hotels.Add(hotel);
-                db.SaveChanges();
+                _db.Hotels.Add(hotel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +70,7 @@ namespace GpBooking.Controllers.Booking
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotel hotel = db.Hotels.Find(id);
+            Hotel hotel = _db.Hotels.Find(id);
             if (hotel == null)
             {
                 return HttpNotFound();
@@ -82,8 +87,8 @@ namespace GpBooking.Controllers.Booking
         {
             if (ModelState.IsValid)
             {
-                db.Entry(hotel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(hotel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(hotel);
@@ -96,7 +101,7 @@ namespace GpBooking.Controllers.Booking
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hotel hotel = db.Hotels.Find(id);
+            Hotel hotel = _db.Hotels.Find(id);
             if (hotel == null)
             {
                 return HttpNotFound();
@@ -109,17 +114,17 @@ namespace GpBooking.Controllers.Booking
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Hotel hotel = db.Hotels.Find(id);
-            db.Hotels.Remove(hotel);
-            db.SaveChanges();
+            Hotel hotel = _db.Hotels.Find(id);
+            _db.Hotels.Remove(hotel);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

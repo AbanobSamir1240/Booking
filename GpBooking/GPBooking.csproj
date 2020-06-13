@@ -763,7 +763,7 @@
     <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Hotel\Create.cshtml" />
     <Content Include="Views\Hotel\Delete.cshtml" />
-    <Content Include="Views\Hotel\Details.cshtml" />
+    <Content Include="Views\Hotel\Get.cshtml" />
     <Content Include="Views\Hotel\Edit.cshtml" />
     <Content Include="Views\Hotel\Index.cshtml" />
   </ItemGroup>
