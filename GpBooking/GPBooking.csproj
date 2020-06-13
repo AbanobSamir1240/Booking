@@ -218,6 +218,7 @@
     <Compile Include="Services\HttpRequest.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\BookTableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Attachments\ReadMe.txt" />
@@ -454,9 +455,19 @@
     <Content Include="Images\RealEstate_14.png" />
     <Content Include="Images\RealEstate_15.png" />
     <Content Include="Images\Rest-banner_02.jpg" />
+    <Content Include="Images\Restaurant\res-banner-2.jpg" />
+    <Content Include="Images\Restaurant\res-banner-3.jpg" />
+    <Content Include="Images\Restaurant\res-banner-4.jpg" />
+    <Content Include="Images\Restaurant\res-banner-1.jpg" />
+    <Content Include="Images\Restaurant\res-banner-6.jpg" />
+    <Content Include="Images\Restaurant\res-dish-1.jpg" />
+    <Content Include="Images\Restaurant\res-dish-2.jpg" />
+    <Content Include="Images\Restaurant\res-dish-3.jpg" />
+    <Content Include="Images\Restaurant\res-dish-4.jpg" />
+    <Content Include="Images\Restaurant\res-dish-5.jpg" />
+    <Content Include="Images\Restaurant\res-dish-6.jpg" />
     <Content Include="Images\service-3.png" />
     <Content Include="Images\tour-img_03.jpg" />
-    <Content Include="Images\Travel-banner_02.jpg" />
     <Content Include="Images\Travel-icon_03.png" />
     <Content Include="Images\Travel-icon_05.png" />
     <Content Include="Images\Travel-icon_08.png" />
@@ -781,6 +792,7 @@
     <Content Include="Views\Restaurant\Details.cshtml" />
     <Content Include="Views\Restaurant\Edit.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
+
     <Content Include="Views\Hotel\Get.cshtml" />
     <Content Include="Views\Hotel\Booking.cshtml" />
     <Content Include="Views\Account\EmailNotConfirm.cshtml" />
@@ -795,6 +807,12 @@
     <Content Include="Views\Club\BookingConfirm.cshtml" />
     <Content Include="Views\Club\Booking.cshtml" />
     <Content Include="Views\Club\_BookingClub.cshtml" />
+    <Content Include="Views\Hotel\Create.cshtml" />
+    <Content Include="Views\Hotel\Delete.cshtml" />
+    <Content Include="Views\Hotel\Details.cshtml" />
+    <Content Include="Views\Hotel\Edit.cshtml" />
+    <Content Include="Views\Hotel\Index.cshtml" />
+    <Content Include="Views\Restaurant\GetRestaurant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
