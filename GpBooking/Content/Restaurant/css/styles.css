@@ -2845,7 +2845,7 @@ opacity:1 !important;
 /*----------------------> Banner <----------------------*/
 
 .ewebcraft-banner1 {
-    background-image: url(/Images/Rest-banner_02.jpg);
+    /*background-image: url(/Images/Rest-banner_02.jpg);*/
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
