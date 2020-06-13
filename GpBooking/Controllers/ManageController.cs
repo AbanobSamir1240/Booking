@@ -44,6 +44,7 @@ namespace GpBooking.Controllers
             var currentUser = ApplicationUserService.GetUserId();
             ViewBag.hotels = _db.HotelReservations.Where(l=>l.ApplicationUserId==currentUser).ToList();
             ViewBag.clubs = _db.ClubReservationses.Where(l => l.ApplicationUserId == currentUser).ToList();
+            ViewBag.rests = _db.RestaurantReservationses.Where(l => l.ApplicationUserId == currentUser).ToList();
             return View();
         }
 

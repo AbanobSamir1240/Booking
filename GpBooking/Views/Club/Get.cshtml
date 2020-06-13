@@ -7,6 +7,10 @@
 {
     @Model.Name
 }
+@section img
+{
+    @(Model.Image ?? "/Images/RealEstate-banner.jpg")
+}
 
 <section class="ewc-content-10">
     <div class="container">
@@ -17,21 +21,21 @@
                     @Model.About
                 </p>
             </div>
-    @if (ViewBag.Checkin is bool && (bool) ViewBag.Checkin)
-    {
+            @if (ViewBag.Checkin is bool && (bool)ViewBag.Checkin)
+            {
 
-            <div class="row">
-                <div class="pmain_block text-center">
-                <a href="/Club/Booking?club=@Model.Id">
-                    <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">
-                        <span>
-                            Book Now
-                        </span>
-                    </h4>
-                </a>
-            </div>
-            </div>
-    }
+                <div class="row">
+                    <div class="pmain_block text-center">
+                        <a href="/Club/Booking?club=@Model.Id">
+                            <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">
+                                <span>
+                                    Book Now
+                                </span>
+                            </h4>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </section><!--start video-->

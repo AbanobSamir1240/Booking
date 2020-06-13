@@ -188,6 +188,7 @@
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\ClubReservations.cs" />
+    <Compile Include="Models\RestaurantReservations.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Services\ApplicationService.cs" />
@@ -218,7 +219,6 @@
     <Compile Include="Services\HttpRequest.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModel\BookTableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Attachments\ReadMe.txt" />
@@ -412,6 +412,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\Emails\3.txt" />
     <Content Include="Files\Emails\2.txt" />
     <Content Include="Files\Emails\1.txt" />
     <Content Include="Files\ReadMe.txt" />
@@ -787,11 +788,6 @@
     <Content Include="Views\Shared\_RestaurantLayout.cshtml" />
     <Content Include="Views\Shared\_ContactUsPartial.cshtml" />
     <Content Include="Views\Place\Get.cshtml" />
-    <Content Include="Views\Restaurant\Create.cshtml" />
-    <Content Include="Views\Restaurant\Delete.cshtml" />
-    <Content Include="Views\Restaurant\Details.cshtml" />
-    <Content Include="Views\Restaurant\Edit.cshtml" />
-    <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Hotel\Get.cshtml" />
     <Content Include="Views\Hotel\Booking.cshtml" />
     <Content Include="Views\Account\EmailNotConfirm.cshtml" />
@@ -812,6 +808,11 @@
     <Content Include="Views\Hotel\Edit.cshtml" />
     <Content Include="Views\Hotel\Index.cshtml" />
     <Content Include="Views\Restaurant\GetRestaurant.cshtml" />
+    <Content Include="Views\Restaurant\_BookingTable.cshtml" />
+    <Content Include="Views\Restaurant\Booking.cshtml" />
+    <Content Include="Views\Restaurant\BookingConfirm.cshtml" />
+    <Content Include="Views\Restaurant\Checkin.cshtml" />
+    <Content Include="Views\Restaurant\EditBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

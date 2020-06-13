@@ -19,6 +19,7 @@ namespace GpBooking.Models
 
         [Required]
         public string About { get; set; }
+        public string Image { get; set; }
         [ForeignKey("Place")]
         public int PlaceId { get; set; }
 

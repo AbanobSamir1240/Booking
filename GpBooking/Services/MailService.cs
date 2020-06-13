@@ -77,5 +77,18 @@ namespace GpBooking.Services
             mail = mail.Replace("-PaymentType-", clubReservations.PaymentType.ToString());
             return mail;
         }
+
+        public static string HandleThree(string mail, RestaurantReservations hotelReservations)
+        {
+            mail = mail.Replace("-user-", hotelReservations.ApplicationUser.Name);
+            mail = mail.Replace("-Name-", hotelReservations.Restaurant.Name);
+            mail = mail.Replace("-Address-", hotelReservations.Restaurant.Address);
+            mail = mail.Replace("-Tel1-", hotelReservations.Restaurant.Tel1);
+            mail = mail.Replace("-ReservationDate-", hotelReservations.ReservationDate.ToString());
+            mail = mail.Replace("-Date-", hotelReservations.Date.ToString());
+            mail = mail.Replace("-Tabel-", hotelReservations.NumberOfTable.ToString());
+            mail = mail.Replace("-PaymentType-", hotelReservations.PaymentType.ToString());
+            return mail;
+        }
     }
 }

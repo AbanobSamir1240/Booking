@@ -67,7 +67,7 @@
         @using (Html.BeginForm("Checkin", "Hotel", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login100-form validate-form flex-sb flex-w", role = "form" }))
         {
             @Html.AntiForgeryToken()
-            <input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="Id" name="CheckId" type="hidden" value="1">
+            <input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="Id" name="CheckId" type="hidden" value="@Model.Id">
             <div class="container-login100-form-btn">
                 <input type="submit" value="Check-In" class="login100-form-btn" />
             </div>

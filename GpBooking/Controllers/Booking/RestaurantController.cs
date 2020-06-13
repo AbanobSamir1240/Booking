@@ -1,127 +1,188 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using GpBooking.Models;
+using GpBooking.Services;
 
 namespace GpBooking.Controllers.Booking
 {
     public class RestaurantController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db;
 
-        // GET: Restaurant
-        public ActionResult Index()
+        public RestaurantController()
         {
-            return View(db.Restaurants.ToList());
+            _db = new ApplicationDbContext();
         }
 
-        // GET: Restaurant/Details/5
-        public ActionResult Details(int? id)
+
+        [HttpGet]
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Booking(int? Table)
         {
-            if (id == null)
+            if (Table == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home");
             }
-            Restaurant restaurant = db.Restaurants.Find(id);
-            if (restaurant == null)
+
+            var restaurantTable = _db.Restaurants.FirstOrDefault(l => l.Id == Table);
+            if (restaurantTable == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
-            return View(restaurant);
+
+            return View(restaurantTable);
         }
 
-        // GET: Restaurant/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Restaurant/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = RoleName.All)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,About,Image")] Restaurant restaurant)
+        public ActionResult Booking(RestaurantReservations reservation)
         {
             if (ModelState.IsValid)
             {
-                db.Restaurants.Add(restaurant);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (reservation.Id == 0)
+                {
+
+                    _db.RestaurantReservationses.Add(new RestaurantReservations()
+                    {
+                        ApplicationUserId = ApplicationUserService.GetUserId(),
+                        PaymentType = reservation.PaymentType,
+                        Date = reservation.Date,
+                        ReservationDate = DateTime.Now,
+                        NumberOfTable = reservation.NumberOfTable,
+                        RestaurantId = reservation.RestaurantId
+                    });
+                    _db.SaveChanges();
+                    var body =
+                        $"{MailService.HandleThree(FileService.ReadFile(Server.MapPath("~/Files/Emails/3.txt")), new RestaurantReservations() {NumberOfTable = reservation.NumberOfTable, PaymentType = reservation.PaymentType, Date = reservation.Date, ReservationDate = DateTime.Now, ApplicationUser = ApplicationUserService.GetUser(), Restaurant = _db.Restaurants.FirstOrDefault(l => l.Id == reservation.RestaurantId),})}";
+                    MailService.SendMail(Services.ApplicationUserService.GetUser().Email,
+                        "Booking Confirmation", body);
+                    return View("BookingConfirm");
+                }
+                else
+                {
+                    var currentUser = ApplicationUserService.GetUserId();
+                    var restaurantRes = _db.RestaurantReservationses.FirstOrDefault(l =>
+                        l.Id == reservation.Id && l.ApplicationUserId == currentUser);
+                    if (restaurantRes != null)
+                    {
+
+                        restaurantRes.NumberOfTable = reservation.NumberOfTable;
+                        restaurantRes.RestaurantId = reservation.RestaurantId;
+                        restaurantRes.PaymentType = reservation.PaymentType;
+                        restaurantRes.Date = reservation.Date;
+                        _db.Entry(restaurantRes).State = EntityState.Modified;
+                        _db.SaveChanges();
+                    }
+
+                    return RedirectToAction("Profile", "Manage");
+                }
             }
 
-            return View(restaurant);
-        }
-
-        // GET: Restaurant/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = db.Restaurants.Find(id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
-            return View(restaurant);
-        }
-
-        // POST: Restaurant/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ShortName,Name,Address,Tel1,Tel2,About,Image")] Restaurant restaurant)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(restaurant).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(restaurant);
-        }
-
-        // GET: Restaurant/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Restaurant restaurant = db.Restaurants.Find(id);
-            if (restaurant == null)
-            {
-                return HttpNotFound();
-            }
-            return View(restaurant);
-        }
-
-        // POST: Restaurant/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Restaurant restaurant = db.Restaurants.Find(id);
-            db.Restaurants.Remove(restaurant);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Booking", new {Table = reservation.RestaurantId});
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
+
             base.Dispose(disposing);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult BookingTable(int Table)
+        {
+            return PartialView("_BookingTable", new RestaurantReservations()
+            {
+                Id = 0,
+                Date = DateTime.Today,
+                ApplicationUserId = ApplicationUserService.GetUserId(),
+                PaymentType = PaymentType.Cash,
+                ReservationDate = DateTime.Today,
+                NumberOfTable = 1,
+                RestaurantId = Table,
+            });
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult EditBooking(int? id)
+        {
+
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var restaurantTable = _db.RestaurantReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (restaurantTable == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(restaurantTable);
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult Checkin(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var restaurantTable = _db.RestaurantReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (restaurantTable == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(restaurantTable);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleName.All)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Checkin(int CheckId)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var restaurantRes = _db.RestaurantReservationses.FirstOrDefault(l =>
+                l.Id == CheckId && l.ApplicationUserId == currentUser);
+            if (restaurantRes != null)
+            {
+
+                restaurantRes.IsCheckIn = !restaurantRes.IsCheckIn;
+                _db.Entry(restaurantRes).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
+        }
+
+        [Authorize(Roles = RoleName.All)]
+        public ActionResult DeleteBooking(int id)
+        {
+
+            var currentUser = ApplicationUserService.GetUserId();
+            var restaurantRes = _db.RestaurantReservationses.FirstOrDefault(l =>
+                l.Id == id && l.ApplicationUserId == currentUser);
+            if (restaurantRes != null)
+            {
+                _db.Entry(restaurantRes).State = EntityState.Deleted;
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Profile", "Manage");
         }
 
         public ActionResult GetRestaurant(int? id)
@@ -130,23 +191,14 @@ namespace GpBooking.Controllers.Booking
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Restaurant restaurant = db.Restaurants.Find(id);
+
+            Restaurant restaurant = _db.Restaurants.Find(id);
             if (restaurant == null)
             {
                 return HttpNotFound();
             }
+
             return View(restaurant);
         }
-
-
-
-        public void BookTable(ViewModel.BookTableViewModel model)
-        {
-
-        }
     }
-
-   
-
-
 }

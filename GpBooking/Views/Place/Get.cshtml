@@ -1,46 +1,44 @@
 ﻿@model GpBooking.Models.Place
 
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_HotelLayout.cshtml";
+}
+@section HotelName
+{
+    @Model.Name
+}
+@section img
+{
+    @(Model.Image ?? "/Images/RealEstate-banner.jpg")
 }
 
-<h2>Details</h2>
+<section class="ewc-content-10">
+    <div class="container">
+        <div class="row">
+            <div class="pmain_block text-center">
+                <h3>About </h3>
+                <p>
+                    @Model.About
+                </p>
+            </div>
+            <div class="prooerty_block">
+                @foreach (var sub in Model.PlacesSubitems)
+                {
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="property_item">
+                            <h4>@sub.Name</h4>
+                            @if (!string.IsNullOrEmpty(sub.Image))
+                            {
+                            <img src="@sub.Image" class="hvr-bob img-responsive" alt="property images">
+                            }
+                            <div class="pinfo">
+                                <p>About:<span class="margin-right">@sub.About</span></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section><!--start video-->
 
-<div>
-    <h4>Place</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShortName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.About)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-    </dl>
-</div>

@@ -42,7 +42,7 @@
     </section>
     <!-- end header -->
     <!-- BANNER START -->
-    <section style="background-image: url(@Model.Image);" class="module parallax ewebcraft-banner1">
+<section style="background-image: url(@(Model.Image ?? "/Images/Restaurant/res-banner-1.jpg"));" class="module parallax ewebcraft-banner1">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-2 col-sm-1"></div>
@@ -50,11 +50,11 @@
                     <h3>Visit Lunch Box Today</h3>
                     <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Fresh &amp; Fast <span>@Model.ShortName</span></h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                      @Model.About
                     </p>
-                    <button id="btnBookTable" class="btn btn-default hvr-sweep-to-right">
+                    <a href="/Restaurant/Booking?Table=@Model.Id" id="btnBookTable" class="btn btn-default hvr-sweep-to-right">
                         BOOK TABLE
-                    </button>
+                    </a>
                 </div>
 
             </div>
@@ -68,7 +68,6 @@
                         We’ll cater any size party
                     </h2>
                     <p class="section-text wow fadeInUp" data-wow-duration="1s">
-                        Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est.<br class="hidden-sm">Sed nec felis pellentesque, lacinia dui sed, ultricies sapien.
                     </p>
                 </div>
             </div>
@@ -80,7 +79,6 @@
                     <div class="col-xs-12">
                         <h3>TRULY TASTEFUL</h3>
                         <p>
-                            Mauris accumsan eros eget<br> libero posuere vulputate. Etiam elit elit, elementum sed varius at,<br>libero posuere vulputate. Etiam elit
                         </p>
                     </div>
                 </div>
@@ -91,7 +89,6 @@
                     <div class="col-xs-12">
                         <h3>AFFORDABLE PRICES</h3>
                         <p>
-                            Mauris accumsan eros eget<br> libero posuere vulputate. Etiam elit elit, elementum sed varius at,<br>libero posuere vulputate. Etiam elit
                         </p>
                     </div>
                 </div>
@@ -103,7 +100,6 @@
                     <div class="col-xs-12">
                         <h3>11 CITIES</h3>
                         <p>
-                            Mauris accumsan eros eget<br> libero posuere vulputate. Etiam elit elit, elementum sed varius at,<br>libero posuere vulputate. Etiam elit
                         </p>
                     </div>
                 </div>
@@ -114,7 +110,6 @@
                     <div class="col-xs-12">
                         <h3>WE DELIVER</h3>
                         <p>
-                            Mauris accumsan eros eget<br> libero posuere vulputate. Etiam elit elit, elementum sed varius at,<br>libero posuere vulputate. Etiam elit
                         </p>
                     </div>
                 </div>
@@ -133,103 +128,39 @@
         </div>
     </section>
 
-    <!--end video--><section id="services" class="ewc-services-1">
-        <div class="container">
+<!--end video--><section id="services" class="ewc-services-1">
+    <div class="container">
+        @if (Model.RestaurantDishs.Any())
+        {
+
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                     <h2 class="section-heading wow fadeInUp" data-wow-duration="2s">
                         Our Dishs
                     </h2>
-                    <p class="section-text wow fadeInUp" data-wow-duration="1s">
-                        Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est.<br class="hidden-sm">Sed nec felis pellentesque, lacinia dui sed, ultricies sapien.
-                    </p>
                 </div>
             </div>
-            <div class="row services-container">
-                @foreach (var item in Model.RestaurantDishs)
-                {
+        }
+        <div class="row services-container">
+            @foreach (var item in Model.RestaurantDishs)
+            {
 
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="@item.Image" class="img-responsive" alt="image-1">
+                <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
+                    <div class="service-detail">
+                        <img src="@item.Image" class="img-responsive" alt="image-1">
 
-                            <div class="ewc-caption-1">
-                                <h3>@item.DishName</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
+                        <div class="ewc-caption-1">
+                            <h3>@item.DishName</h3>
+                            <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
                         </div>
                     </div>
-                }
-
-                @*<div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="/Images/ewc-service6.jpg" class="img-responsive" alt="image-1">
-
-                            <div class="ewc-caption-1">
-                                <h3>Week Specials</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="/Images/ewc-service5.jpg" class="img-responsive" alt="image-1">
-
-                            <div class="ewc-caption-1">
-                                <h3>Week Specials</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="/Images/ewc-service3.jpg" class="img-responsive" alt="image-1">
-
-                            <div class="ewc-caption-1">
-                                <h3>Week Specials</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="/Images/ewc-service1.jpg" class="img-responsive" alt="image-1">
-
-                            <div class="ewc-caption-1">
-                                <h3>Week Specials</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 wow pulse" data-wow-duration="1s">
-                        <div class="service-detail">
-                            <img src="/Images/ewc-service4.jpg" class="img-responsive" alt="image-1">
-
-                            <div class="ewc-caption-1">
-                                <h3>Week Specials</h3>
-                                <p>onec a felis sed ligula aliquet sollicitudin a in elit. Nunc at commodo erat, fringilla egestas tortor.</p>
-                            </div>
-                        </div>
-                    </div>*@
-
-            </div>
+                </div>
+            }
         </div>
-    </section><section id="content-with-left-image">
+    </div>
+</section>
+<section id="content-with-left-image">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                    <h2 class="section-heading wow fadeInUp" data-wow-duration="2s">
-                        Our Speciality
-                    </h2>
-                    <p class="section-text wow fadeInUp" data-wow-duration="1s">
-                        Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est.<br class="hidden-sm">Sed nec felis pellentesque, lacinia dui sed, ultricies sapien.
-                    </p>
-                </div>
-            </div>
             <div class="row section-detail">
                 <div class="col-lg-8 col-md-8 col-sm-12 about-image">
                     <img class="img-responsive" src="/Images/chef.png" alt="welcome">
@@ -242,7 +173,6 @@
                         <div class="col-xs-12">
                             <h3>Truly Tastfull</h3>
                             <p>
-                                Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed.
                             </p>
                         </div>
                     </div>
@@ -253,7 +183,6 @@
                         <div class="col-xs-12">
                             <h3>Affordable Price</h3>
                             <p>
-                                Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed.
                             </p>
                         </div>
                     </div>
@@ -264,7 +193,6 @@
                         <div class="col-xs-12">
                             <h3>We Deliver</h3>
                             <p>
-                                Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed.
                             </p>
                         </div>
                     </div>
@@ -277,56 +205,10 @@
             </div>
         </div>
     </section><!-- Testmonial start -->
-    <section id="feedback" class="ewc-testimonials-1">
-        <div class="container ">
-            <div class="row">
-                <div class="col-sm-12 feaadback-heading text-center">
-                    <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">What Client’s says</h2>
-                </div>
-                <div class="col-sm-6 feedback-block">
-                    <p>“Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consec tetur, adipisci velit, sed quia non numquam eius modi tempora incidunt utis labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minimas veniam, quis nostrum exercitationem. “Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet</p>
-                    <div class="user-information">
-                        <div class="col-sm-1 user-image">
-                            <img src="/Images/user.png" alt="Jon Doe">
-                        </div>
-                        <div class="col-sm-11 user-name text-left">
-                            <h4 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Jon Doe,<span> Company Inc.</span></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 feedback-block">
-                    <p>“Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consec tetur, adipisci velit, sed quia non numquam eius modi tempora incidunt utis labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minimas veniam, quis nostrum exercitationem. “Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet</p>
-                    <div class="user-information">
-                        <div class="col-sm-1 user-image">
-                            <img src="/Images/user.png" alt="Jon Doe">
-                        </div>
-                        <div class="col-sm-11 user-name text-left">
-                            <h4 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Jon Doe,<span> Company Inc.</span></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- Testmonial end -->
     <section id="footer" class="ewc-footer-3">
         <div class="container">
             <div class="row">
-                @*<div class="col-sm-4 footer-block text-center">
-                        <img src="/Images/Travel-icon_18.png" alt="map-icon">
-                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">ADDRESS</h3>
-                        <p>250 Elizabeth Str., Melbourne, Australia</p>
-                    </div>
-                    <div class="col-sm-4 footer-block text-center">
-                        <img src="/Images/Travel-icon_24.png" alt="message">
-                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">contact</h3>
-                        <p>250 Elizabeth Str., Melbourne, Australia</p>
-                    </div>
-                    <div class="col-sm-4 footer-block text-center">
-                        <img src="/Images/Travel-icon_21.png" alt="phone">
-                        <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">phone</h3>
-                        <p>254-256-988-1 or 325-588-687</p>
-                    </div>*@
                 <div class="col-sm-12 social-icon text-center">
                     <a href="#"><i class="fa fa-facebook"></i></a>
                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -384,7 +266,7 @@
 </div>
 
 
-@section scripts{
+@*@section scripts{
 
     <script>
         $("#btnBookTable").on("click", (e) => {
@@ -414,4 +296,4 @@
             })
         })
     </script>
-}
+}*@

@@ -270,12 +270,14 @@ hr {
 }
 
 ::selection {
-	background: #00c0ff;
+    background-color: rgb(0, 192, 255);
+    background-image: url(/Images/Restaurant/res-banner-1.jpg) !important; 
 	color: #fff;
 }
 ::-moz-selection {
- background: #00c0ff;
- color: #fff;
+    background-color: rgb(0, 192, 255);
+    background-image: url(/Images/Restaurant/res-banner-1.jpg);
+    color: #fff;
 }
 
 .zero-bottom {

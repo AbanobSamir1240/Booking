@@ -7,6 +7,10 @@
 {
     @Model.Name
 }
+@section img
+{
+    @(Model.Image ?? "/Images/RealEstate-banner.jpg")
+}
 
 <section class="ewc-content-10">
     <div class="container">
@@ -27,7 +31,7 @@
                             <div class="pinfo">
                                 <p>Price:<span class="margin-right">@room.Price</span></p>
                             </div>
-                        <a href="/Hotel/Booking?Room=@room.Id">
+                            <a href="/Hotel/Booking?Room=@room.Id">
                                 <h4 class="btn btn-default hvr-shutter-out-horizontal hvr-wobble-bottom">
                                     <span>
                                         Book Now

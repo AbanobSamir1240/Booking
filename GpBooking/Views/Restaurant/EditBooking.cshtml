@@ -1,0 +1,50 @@
+﻿@model GpBooking.Models.RestaurantReservations
+@{
+    ViewBag.Title = "EditBooking";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@section title
+{
+    Edit Booking
+}
+
+<div>
+    <h4>Restaurant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Restaurant
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurant.Name)
+        </dd>
+        <dt>
+            Restaurant Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurant.Address)
+        </dd>
+        <dt>
+            Restaurant Tel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurant.Tel1)
+        </dd>
+        <dt></dt>
+        <dd>
+            @Html.Partial("_BookingTable", model:Model)
+        </dd>
+    </dl>
+</div>
+@section scripts{
+    <script>
+        $(() => {
+            $(".datepicker").datepicker();
+        });
+    </script>
+}

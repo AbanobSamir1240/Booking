@@ -22,6 +22,7 @@ namespace GpBooking.Models
         public virtual DbSet<ApplicationLog> ApplicationLogs { get; set; }
         public virtual DbSet<Club> Clubs { get; set; }
         public virtual DbSet<HotelReservations> HotelReservations { get; set; }
+        public virtual DbSet<RestaurantReservations> RestaurantReservationses { get; set; }
         public virtual DbSet<ClubReservations> ClubReservationses { get; set; }
         public virtual DbSet<HotelRooms> HotelRooms { get; set; }
         public virtual DbSet<HotelRoomType> HotelRoomTypes { get; set; }

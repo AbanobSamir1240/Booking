@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     var hotels = ViewBag.hotels as List<GpBooking.Models.HotelReservations>;
     var clubs = ViewBag.clubs as List<GpBooking.Models.ClubReservations>;
+    var rests = ViewBag.rests as List<GpBooking.Models.RestaurantReservations>;
 }
 @section title
 {
@@ -43,15 +44,15 @@
                 {
 
                     <div>
-                        @Html.ActionLink("Edit Booking", "EditBooking", "Club", new { id = res.Id }, new { @class = "txt3" })
+                        @Html.ActionLink("Edit Booking", "EditBooking", "Hotel", new { id = res.Id }, new { @class = "txt3" })
                     </div>
                     <div>
                         <a href="#">
-                            <i class="txt3" onclick="openPopUp('/Club/DeleteBooking/@res.Id')">Delete Booking</i>
+                            <i class="txt3" onclick="openPopUp('/Hotel/DeleteBooking/@res.Id')">Delete Booking</i>
                         </a>
                     </div>
                     <div>
-                        @Html.ActionLink("Check in", "Checkin", "Club", new { id = res.Id }, new { @class = "txt3" })
+                        @Html.ActionLink("Check in", "Checkin", "Hotel", new { id = res.Id }, new { @class = "txt3" })
                     </div>
                 }
             </dd>
@@ -105,6 +106,59 @@
                     </div>
                     <div>
                         @Html.ActionLink("Check in", "Checkin", "Club", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
+                }
+            </dd>
+            <dt></dt>
+            <dd>
+
+            </dd>
+        </dl>
+    }
+}
+@if (rests.Any())
+{
+        <h3>Restaurant</h3>
+    <hr />
+    foreach (var res in rests)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => res.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.Date)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.NumberOfTable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.NumberOfTable)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => res.Restaurant)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => res.Restaurant.Name)
+            </dd>
+            <dt></dt>
+            <dd>
+                @if (!res.IsCheckIn)
+                {
+
+                    <div>
+                        @Html.ActionLink("Edit Booking", "EditBooking", "Restaurant", new { id = res.Id }, new { @class = "txt3" })
+                    </div>
+                    <div>
+                        <a href="#">
+                            <i class="txt3" onclick="openPopUp('/Restaurant/DeleteBooking/@res.Id')">Delete Booking</i>
+                        </a>
+                    </div>
+                    <div>
+                        @Html.ActionLink("Check in", "Checkin", "Restaurant", new { id = res.Id }, new { @class = "txt3" })
                     </div>
                 }
             </dd>
