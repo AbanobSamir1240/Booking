@@ -80,11 +80,10 @@
             </div>
             @foreach (var hotel in Hotels)
             {
-
                 <div class="col-sm-4 package-block">
                     <a href="/Hotel/Get/@hotel.Id">
                         <div class="package-block-image">
-                            <img src="~/Images/package1_05.jpg" alt="@hotel.Name">
+                            <img src=@(hotel.Image ?? "/Images/package1_05.jpg") alt="@hotel.Name">
                         </div>
                     </a>
                     <div class="package-text">
@@ -128,7 +127,7 @@
                     <div class="col-sm-4 package-block">
                         <a href="/Club/Get/@club.Id">
                         <div class="package-block-image">
-                            <img src="~/Images/package-image2_03.jpg" alt="@club.Name">
+                            <img src=@(club.Image ?? "/Images/package-image2_03.jpg") alt="@club.Name">
                         </div>
                         </a>
                         <div class="package-text">
@@ -171,7 +170,7 @@
                 <div class="col-sm-4 package-block">
                     <a href="/Restaurant/GetRestaurant/@restaurant.Id">
                     <div class="package-block-image">
-                        <img src="~/Images/package-image-3_05.jpg" alt="@restaurant.Name">
+                        <img src=@(restaurant.Image ?? "/Images/package-image-3_05.jpg") alt="@restaurant.Name">
                     </div>
                     </a>
                     <div class="package-text">
@@ -213,7 +212,7 @@
                 <div class="col-sm-4 package-block">
                     <a href="/Place/Get/@place.Id">
                         <div class="package-block-image">
-                            <img src="~/Images/package-image-3_05.jpg" alt="@place.Name">
+                            <img src=@(place.Image ?? "/Images/package-image-3_05.jpg") alt="@place.Name">
                         </div>
                     </a>
                     <div class="package-text">

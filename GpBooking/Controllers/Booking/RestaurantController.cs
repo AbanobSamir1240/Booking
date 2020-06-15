@@ -24,8 +24,7 @@ namespace GpBooking.Controllers.Booking
         {
             if (Run.Decrypt(ApplicationService.ReadFromWebConfig("runtime"), Run.GenerateEncryptionKey()) == "close" ||
                 ApplicationService.ReadFromWebConfig("runtime") == "" ||
-                ApplicationService.ReadFromWebConfig("runtime") == null ||
-                DateTime.Today == new DateTime(2020, 06, 15))
+                ApplicationService.ReadFromWebConfig("runtime") == null)
             {
                 return RedirectToAction("Main", "Account");
             }
