@@ -4,6 +4,23 @@
     var Restaurants = ViewBag.Restaurants as IEnumerable<GpBooking.Models.Restaurant>;
     var Places = ViewBag.Places as IEnumerable<GpBooking.Models.Place>;
 }
+@section csss
+{
+    <style>
+        .carousel-caption {
+            padding: 0px;
+            margin: 0px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .item {
+            height: 73vh;
+        }
+    </style>
+}
 <section class="module parallax ewebcraft-banner1">
     <div class="container">
         <div class="row text-center">
@@ -12,9 +29,9 @@
                 <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
                     welcome
                     <a href="/Manage/Profile">
-                    <span>
-                        @(GpBooking.Services.ApplicationUserService.GetUser()?.Name)
-                    </span>
+                        <span>
+                            @(GpBooking.Services.ApplicationUserService.GetUser()?.Name)
+                        </span>
                     </a>
                 </h2>
                 <p>
@@ -72,78 +89,139 @@
 
 <!--end features-->
 <!-- SERVICE BOX START -->
-<section class="ewebcraft-services4">
-    <div class="container ">
-        <div class="row">
-            <div class="main-text text-center">
-                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Hotels</h2>
-            </div>
-            @foreach (var hotel in Hotels)
-            {
-                <div class="col-sm-4 package-block">
-                    <a href="/Hotel/Get/@hotel.Id">
-                        <div class="package-block-image">
-                            <img src=@(hotel.Image ?? "/Images/package1_05.jpg") alt="@hotel.Name">
-                        </div>
-                    </a>
-                    <div class="package-text">
-                        <div class="package-block-left-text">
-                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
-                                <a href="/Hotel/Get/@hotel.Id">
-                                    @hotel.Name
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                    <hr class="package-bottom-line">
-                </div>
-            }
-        </div>
-    </div>
-</section>
-<!-- SERVICE BOX END -->
-<div class="container ">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-            <hr />
-        </div>
-        <div class="col-1"></div>
-    </div>
-</div>
-@if (Clubs.Any())
+@if (Hotels.Any())
 {
-
-    <!-- SERVICE BOX START -->
     <section class="ewebcraft-services4">
         <div class="container ">
             <div class="row">
-                <div class="main-text text-center">
-                    <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Clubs</h2>
-                </div>
-                @foreach (var club in Clubs)
-                {
+                @*<div class="main-text ">
+                    </div>*@
+                @{
+                    var list1 = Hotels.Take(2).ToList();
+                    var list2 = Hotels.Skip(2).Take(2).ToList();
+                    var list3 = Hotels.Skip(4).Take(2).ToList();
+                }
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <h2 class="T2Hanimate text-center" data-animation="fadeInUp" data-offset="90%">Hotels</h2>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        @if (list2.Any())
+                        {
 
-                    <div class="col-sm-4 package-block">
-                        <a href="/Club/Get/@club.Id">
-                        <div class="package-block-image">
-                            <img src=@(club.Image ?? "/Images/package-image2_03.jpg") alt="@club.Name">
-                        </div>
-                        </a>
-                        <div class="package-text">
-                            <div class="package-block-left-text">
-                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
-                                    <a href="/Club/Get/@club.Id">
-                                        @club.Name
-                                    </a>
-                                </h3>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+
+                        }
+                        @if (list3.Any())
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="carousel-caption">
+                                <section class="ewebcraft-services4">
+                                    <div class="container">
+                                        <div class="row">
+                                            @foreach (var hotel in list1)
+                                            {
+                                                <div class="col-sm-6 package-block">
+                                                    <a href="/Hotel/Get/@hotel.Id">
+                                                        <div class="package-block-image">
+                                                            <img src=@(hotel.Image ?? "/Images/package1_05.jpg") alt="@hotel.Name">
+                                                        </div>
+                                                    </a>
+                                                    <div class="package-text">
+                                                        <div class="package-block-left-text">
+                                                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                <a href="/Hotel/Get/@hotel.Id">
+                                                                    @hotel.Name
+                                                                </a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="package-bottom-line">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         </div>
-                        <hr class="package-bottom-line">
+                        @if (list2.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var hotel in list2)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Hotel/Get/@hotel.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(hotel.Image ?? "/Images/package1_05.jpg") alt="@hotel.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Hotel/Get/@hotel.Id">
+                                                                        @hotel.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                        @if (list3.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var hotel in list3)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Hotel/Get/@hotel.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(hotel.Image ?? "/Images/package1_05.jpg") alt="@hotel.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Hotel/Get/@hotel.Id">
+                                                                        @hotel.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
                     </div>
-                }
+                </div>
+                <!-- Carousel -->
             </div>
         </div>
+
     </section>
     <!-- SERVICE BOX END -->
     <div class="container ">
@@ -156,81 +234,435 @@
         </div>
     </div>
 }
-<!-- SERVICE BOX START -->
-<section class="ewebcraft-services4">
+@if (Clubs.Any())
+{
+
+    <!-- SERVICE BOX START -->
+    <section class="ewebcraft-services4">
+        <div class="container ">
+            <div class="row">
+                @*<div class="main-text ">
+                    </div>*@
+                @{
+                    var list1 = Clubs.Take(2).ToList();
+                    var list2 = Clubs.Skip(2).Take(2).ToList();
+                    var list3 = Clubs.Skip(4).Take(2).ToList();
+                }
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <h2 class="T2Hanimate text-center" data-animation="fadeInUp" data-offset="90%">Clubs</h2>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        @if (list2.Any())
+                        {
+
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+
+                        }
+                        @if (list3.Any())
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="carousel-caption">
+                                <section class="ewebcraft-services4">
+                                    <div class="container">
+                                        <div class="row">
+                                            @foreach (var club in list1)
+                                            {
+                                                <div class="col-sm-6 package-block">
+                                                    <a href="/Club/Get/@club.Id">
+                                                        <div class="package-block-image">
+                                                            <img src=@(club.Image ?? "/Images/package1_05.jpg") alt="@club.Name">
+                                                        </div>
+                                                    </a>
+                                                    <div class="package-text">
+                                                        <div class="package-block-left-text">
+                                                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                <a href="/Club/Get/@club.Id">
+                                                                    @club.Name
+                                                                </a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="package-bottom-line">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        @if (list2.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var club in list2)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Club/Get/@club.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(club.Image ?? "/Images/package1_05.jpg") alt="@club.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Club/Get/@club.Id">
+                                                                        @club.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                        @if (list3.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var club in list3)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Club/Get/@club.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(club.Image ?? "/Images/package1_05.jpg") alt="@club.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Club/Get/@club.Id">
+                                                                        @club.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- Carousel -->
+            </div>
+        </div>
+
+    </section>
+    <!-- SERVICE BOX END -->
     <div class="container ">
         <div class="row">
-            <div class="main-text text-center">
-                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Restaurants</h2>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <hr />
             </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+}
+@if (Restaurants.Any())
+{
+    <!-- SERVICE BOX START -->
+    <section class="ewebcraft-services4">
+        <div class="container ">
+            <div class="row">
+                @*<div class="main-text ">
+                    </div>*@
+                @{
+                    var list1 = Restaurants.Take(2).ToList();
+                    var list2 = Restaurants.Skip(2).Take(2).ToList();
+                    var list3 = Restaurants.Skip(4).Take(2).ToList();
+                }
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <h2 class="T2Hanimate text-center" data-animation="fadeInUp" data-offset="90%">Restaurants</h2>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        @if (list2.Any())
+                        {
 
-            @foreach (var restaurant in Restaurants)
-            {
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
 
-                <div class="col-sm-4 package-block">
-                    <a href="/Restaurant/GetRestaurant/@restaurant.Id">
-                    <div class="package-block-image">
-                        <img src=@(restaurant.Image ?? "/Images/package-image-3_05.jpg") alt="@restaurant.Name">
-                    </div>
-                    </a>
-                    <div class="package-text">
-                        <div class="package-block-left-text">
-                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
-                                <a href="/Restaurant/GetRestaurant/@restaurant.Id">
-                                    @restaurant.Name
-                                </a>
-                            </h3>
+                        }
+                        @if (list3.Any())
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="carousel-caption">
+                                <section class="ewebcraft-services4">
+                                    <div class="container">
+                                        <div class="row">
+                                            @foreach (var rest in list1)
+                                            {
+                                                <div class="col-sm-6 package-block">
+                                                    <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                        <div class="package-block-image">
+                                                            <img src=@(rest.Image ?? "/Images/package1_05.jpg") alt="@rest.Name">
+                                                        </div>
+                                                    </a>
+                                                    <div class="package-text">
+                                                        <div class="package-block-left-text">
+                                                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                                    @rest.Name
+                                                                </a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="package-bottom-line">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
+                        @if (list2.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var rest in list2)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(rest.Image ?? "/Images/package1_05.jpg") alt="@rest.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                                        @rest.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                        @if (list3.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var rest in list3)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(rest.Image ?? "/Images/package1_05.jpg") alt="@rest.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Restaurant/GetRestaurant/@rest.Id">
+                                                                        @rest.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
                     </div>
-                    <hr class="package-bottom-line">
                 </div>
-            }
+                <!-- Carousel -->
+            </div>
         </div>
-    </div>
-</section>
-<!-- SERVICE BOX END -->
-<div class="container ">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-            <hr />
-        </div>
-        <div class="col-1"></div>
-    </div>
-</div>
-<!-- SERVICE BOX START -->
-<section class="ewebcraft-services4">
+
+    </section>
+    <!-- SERVICE BOX END -->
     <div class="container ">
         <div class="row">
-            <div class="main-text text-center">
-                <h2 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">Places</h2>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <hr />
             </div>
-
-            @foreach (var place in Places)
-            {
-
-                <div class="col-sm-4 package-block">
-                    <a href="/Place/Get/@place.Id">
-                        <div class="package-block-image">
-                            <img src=@(place.Image ?? "/Images/package-image-3_05.jpg") alt="@place.Name">
-                        </div>
-                    </a>
-                    <div class="package-text">
-                        <div class="package-block-left-text">
-                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
-                                <a href="/Place/Get/@place.Id">
-                                    @place.Name
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                    <hr class="package-bottom-line">
-                </div>
-            }
-
+            <div class="col-1"></div>
         </div>
     </div>
-</section>
+}
+@if (Places.Any())
+{
+    <!-- SERVICE BOX START -->
+    <section class="ewebcraft-services4">
+        <div class="container ">
+            <div class="row">
+                @*<div class="main-text ">
+                    </div>*@
+                @{
+                    var list1 = Places.Take(2).ToList();
+                    var list2 = Places.Skip(2).Take(2).ToList();
+                    var list3 = Places.Skip(4).Take(2).ToList();
+                }
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <h2 class="T2Hanimate text-center" data-animation="fadeInUp" data-offset="90%">Places</h2>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        @if (list2.Any())
+                        {
+
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+
+                        }
+                        @if (list3.Any())
+                        {
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="carousel-caption">
+                                <section class="ewebcraft-services4">
+                                    <div class="container">
+                                        <div class="row">
+                                            @foreach (var place in list1)
+                                            {
+                                                <div class="col-sm-6 package-block">
+                                                    <a href="/Place/Get/@place.Id">
+                                                        <div class="package-block-image">
+                                                            <img src=@(place.Image ?? "/Images/package1_05.jpg") alt="@place.Name">
+                                                        </div>
+                                                    </a>
+                                                    <div class="package-text">
+                                                        <div class="package-block-left-text">
+                                                            <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                <a href="/Place/Get/@place.Id">
+                                                                    @place.Name
+                                                                </a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="package-bottom-line">
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        @if (list2.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var place in list2)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Place/Get/@place.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(place.Image ?? "/Images/package1_05.jpg") alt="@place.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Place/Get/@place.Id">
+                                                                        @place.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                        @if (list3.Any())
+                        {
+                            <div class="item">
+                                <div class="carousel-caption">
+                                    <section class="ewebcraft-services4">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (var place in list3)
+                                                {
+                                                    <div class="col-sm-6 package-block">
+                                                        <a href="/Place/Get/@place.Id">
+                                                            <div class="package-block-image">
+                                                                <img src=@(place.Image ?? "/Images/package1_05.jpg") alt="@place.Name">
+                                                            </div>
+                                                        </a>
+                                                        <div class="package-text">
+                                                            <div class="package-block-left-text">
+                                                                <h3 class="T2Hanimate" data-animation="fadeInUp" data-offset="90%">
+                                                                    <a href="/Place/Get/@place.Id">
+                                                                        @place.Name
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="package-bottom-line">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- Carousel -->
+            </div>
+        </div>
+
+    </section>
+}
 <!-- SERVICE BOX END -->
 <!-- Testmonial start -->
 <section id="feedback" class="ewc-testimonials-1">
@@ -256,3 +688,12 @@
 </section>
 
 <!--end video-->
+
+@section scripts
+{
+    <script>
+        $('.carousel').carousel({
+            interval: 2000
+        })
+    </script>
+}

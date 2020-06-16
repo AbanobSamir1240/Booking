@@ -15,19 +15,21 @@ namespace GpBooking.Controllers
         {
             _db=new ApplicationDbContext();
         }
+
         [AllowAnonymous]
         public ActionResult Index()
         {
             if (Run.Decrypt(ApplicationService.ReadFromWebConfig("runtime"), Run.GenerateEncryptionKey()) == "close" ||
                 ApplicationService.ReadFromWebConfig("runtime") == "" ||
-                ApplicationService.ReadFromWebConfig("runtime") == null )
+                ApplicationService.ReadFromWebConfig("runtime") == null)
             {
                 return RedirectToAction("Main", "Account");
             }
-            ViewBag.Hotels = _db.Hotels.OrderBy(r => Guid.NewGuid()).Take(3);
-            ViewBag.Clubs = _db.Clubs.OrderBy(r => Guid.NewGuid()).Take(3);
-            ViewBag.Restaurants = _db.Restaurants.OrderBy(r => Guid.NewGuid()).Take(3);
-            ViewBag.Places = _db.Places.OrderBy(r => Guid.NewGuid()).Take(3);
+
+            ViewBag.Hotels = _db.Hotels.OrderBy(r => Guid.NewGuid()).ToList();
+            ViewBag.Clubs = _db.Clubs.OrderBy(r => Guid.NewGuid()).ToList();
+            ViewBag.Restaurants = _db.Restaurants.OrderBy(r => Guid.NewGuid()).ToList();
+            ViewBag.Places = _db.Places.OrderBy(r => Guid.NewGuid()).ToList();
             return View();
         }
 
